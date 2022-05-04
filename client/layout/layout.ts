@@ -1,9 +1,5 @@
 import "./layout.css";
 
-// class Layout {
-//   public getNickname;
-// }
-
 function Layout() {
   const container = document.createElement("div");
   container.id = "container";
@@ -15,5 +11,3 @@ function Layout() {
   container.append(header, title);
   document.body.append(container);
 }
-
-// export default Layout;
