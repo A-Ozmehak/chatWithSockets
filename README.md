@@ -1,4 +1,5 @@
-# Socket.io with Typescript
+# ChatApp with Typescript and Socket.io
+
 
 ## Install & Run
 
@@ -26,3 +27,10 @@ Open two terminals and run the following commands
 Run the follow command to remove all three node_modules folders
 
 - `npm run rm-node-modules`.
+
+
+#### Creaters
+[Ella Larsson](https://github.com/EllaMiri)
+[Elin Arntén](https://github.com/elinarnten)
+[Jannie Bäackman Kuurne](https://github.com/Jannie87)
+[Anna Özmehak](https://github.com/A-Ozmehak)
