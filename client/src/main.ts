@@ -80,6 +80,7 @@ function renderMessageForm() {
     event.preventDefault();
     if (chatInput.value.length) {
       socket.emit("message", chatInput.value, joinedRoom);
+      chatForm.reset();
     } else {
     }
   });
@@ -105,23 +106,23 @@ socket.on("roomList", (rooms) => {
 });
 
 socket.on("joined", (room) => {
-  console.log("Joined Room", room)
-    joinedRoom = room;
-    renderMessageForm();
-  });
+  console.log("Joined Room", room);
+  joinedRoom = room;
+  renderMessageForm();
+});
 
-  socket.on("connected", (nickname) => {
-    nickname = nickname;
-    renderRoomInput();
-  });
+socket.on("connected", (nickname) => {
+  nickname = nickname;
+  renderRoomInput();
+});
 
-  socket.on("message", (message, from) => {
-    const chatItem = document.createElement("li");
-    chatItem.textContent = from.nickname + ": " + message;
+socket.on("message", (message, from) => {
+  const chatItem = document.createElement("li");
+  chatItem.textContent = from.nickname + ": " + message;
 
-    const messageList = document.getElementById("messages");
-    if (messageList) {
-      messageList.append(chatItem);
-    }
-    window.scrollTo(0, document.body.scrollHeight);
+  const messageList = document.getElementById("messages");
+  if (messageList) {
+    messageList.append(chatItem);
+  }
+  window.scrollTo(0, document.body.scrollHeight);
 });
