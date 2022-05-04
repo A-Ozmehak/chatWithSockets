@@ -49,7 +49,7 @@ function renderRoomInput() {
 
   let container = document.createElement("div");
   let roomInputHeader = document.createElement("h3");
-  nickNameInputHeader.innerHTML = "Room name";
+  roomInputHeader.innerHTML = "Room name";
 
   let roomInput = document.createElement("input");
 
@@ -105,7 +105,7 @@ socket.on("roomList", (rooms) => {
 });
 
 socket.on("joined", (room) => {
-  console.log("Joined Room", (room) => {
+  console.log("Joined Room", room)
     joinedRoom = room;
     renderMessageForm();
   });
@@ -124,5 +124,4 @@ socket.on("joined", (room) => {
       messageList.append(chatItem);
     }
     window.scrollTo(0, document.body.scrollHeight);
-  });
 });

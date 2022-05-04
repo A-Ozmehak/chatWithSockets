@@ -1,5 +1,5 @@
 import { Server, Socket } from "socket.io";
-import { getRooms } from "../rooms";
+import { getRooms } from "./rooms";
 
 export default (io: Server, socket: Socket) => {
   socket.on("join", (room) => {
