@@ -30,7 +30,7 @@ Run the follow command to remove all three node_modules folders
 
 
 #### Creaters
-[Ella Larsson](https://github.com/EllaMiri)
-[Elin Arntén](https://github.com/elinarnten)
-[Jannie Bäackman Kuurne](https://github.com/Jannie87)
-[Anna Özmehak](https://github.com/A-Ozmehak)
+[Ella Larsson](https://github.com/EllaMiri)  
+[Elin Arntén](https://github.com/elinarnten)  
+[Jannie Bäackman Kuurne](https://github.com/Jannie87)  
+[Anna Özmehak](https://github.com/A-Ozmehak)  
