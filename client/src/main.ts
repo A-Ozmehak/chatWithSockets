@@ -72,20 +72,21 @@ export function renderRoomInput() {
     let roomInput = document.createElement("input");
     roomInput.id = "roomName";
 
-
     let enterBtn = document.createElement("button");
     enterBtn.id = "enterBtn";
     enterBtn.innerHTML = "Log in";
+
+    let listOfRooms = document.createElement('ul');
+    listOfRooms.id = "listRooms"
+    let listElement = document.createElement('li');
+    listElement.id = "listWithRooms"
+    sideContainer.append(listOfRooms)
+    listOfRooms.append(listElement)
+
     enterBtn.addEventListener("click", () => {
         const room = roomInput.value;
 
-        let sideBar = document.getElementById("aside") as HTMLElement
-        let listOfRooms = document.createElement('ul');
-        let listElement = document.createElement('li');
-        listElement.id = "listWithRooms"
         listElement.textContent = roomInput.value;
-        sideBar.append(listOfRooms)
-        listOfRooms.append(listElement)
 
         if (!room.length) {
             return;
@@ -138,18 +139,6 @@ export function renderRoomInput() {
 
     socket.on("roomList", (rooms) => {
         console.log(rooms);
-
-        let roomName = document.getElementById('roomName') as HTMLInputElement
-        let sideBar = document.getElementById("aside") as HTMLElement
-        let listOfRooms = document.createElement('ul');
-        let listElement = document.createElement('li');
-        listElement.id = "listWithRooms"
-        roomList = rooms
-
-        sideBar.append(listOfRooms)
-        listOfRooms.append(listElement)
-
-
     });
 
     socket.on("joined", (room) => {
