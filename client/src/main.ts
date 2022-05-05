@@ -49,8 +49,8 @@ function renderNameInput() {
 //Get new created room input
 function renderRoomInput() {
   document.body.innerHTML = "";
-  let roomContainer = document.createElement("div");
-  roomContainer.id = "roomContainer";
+  let container = document.createElement("div");
+  container.id = "container";
 
   let mainContainer = document.createElement("div");
   mainContainer.id = "mainContainer";
@@ -77,10 +77,10 @@ function renderRoomInput() {
     }
     socket.emit("join", room);
   });
-  sideContainer.append(roomContainer);
-  mainContainer.append(sideContainer, rheader);
-  roomContainer.append(roomInputHeader, roomInput, enterBtn);
-  document.body.append(mainContainer);
+  sideContainer.append(roomInputHeader, roomInput, enterBtn);
+  mainContainer.append(rheader);
+  container.append(sideContainer, mainContainer);
+  document.body.append(container);
 }
 
 function renderMessageForm() {
