@@ -1,5 +1,6 @@
 import "./style.css";
 import "./room.css";
+import "./chat.css";
 import { io, Socket } from "socket.io-client";
 import { ServerToClientEvents, ClientToServerEvents } from "../../types";
 
@@ -49,8 +50,8 @@ function renderNameInput() {
 //Get new created room input
 function renderRoomInput() {
   document.body.innerHTML = "";
-  let container = document.createElement("div");
-  container.id = "container";
+  let rcontainer = document.createElement("div");
+  rcontainer.id = "rcontainer";
 
   let mainContainer = document.createElement("div");
   mainContainer.id = "mainContainer";
@@ -79,17 +80,31 @@ function renderRoomInput() {
   });
   sideContainer.append(roomInputHeader, roomInput, enterBtn);
   mainContainer.append(rheader);
-  container.append(sideContainer, mainContainer);
-  document.body.append(container);
+  rcontainer.append(sideContainer, mainContainer);
+  document.body.append(rcontainer);
 }
 
 function renderMessageForm() {
   document.body.innerHTML = "";
+  let rcontainer = document.createElement("div");
+  rcontainer.id = "rcontainer";
+
+  let mainContainer = document.createElement("div");
+  mainContainer.id = "mainContainer";
+
+  let sideContainer = document.createElement("div");
+  sideContainer.id = "sideContainer";
+
+  let inputButton = document.createElement("div");
+  inputButton.id = "inputButton";
+  let rheader = document.createElement("div");
+  rheader.id = "rheader";
 
   let chatList = document.createElement("ul");
   chatList.id = "messages";
 
   let chatInput = document.createElement("input");
+  chatInput.id = "chatInput";
   chatInput.autocomplete = "off";
 
   let chatForm = document.createElement("form");
@@ -102,10 +117,14 @@ function renderMessageForm() {
     }
   });
   let sendButton = document.createElement("button");
+  sendButton.id = "sendButton";
   sendButton.innerHTML = "Send";
 
   chatForm.append(chatInput, sendButton);
-  document.body.append(chatList, chatForm);
+
+  mainContainer.append(rheader, chatList, chatForm, inputButton);
+  rcontainer.append(sideContainer, mainContainer);
+  document.body.append(rcontainer);
 }
 
 socket.on("connect_error", (err) => {
@@ -136,6 +155,7 @@ socket.on("connected", (nickname) => {
 socket.on("message", (message, from) => {
   const chatItem = document.createElement("li");
   chatItem.textContent = from.nickname + ": " + message;
+  chatItem.id = "chatItem";
 
   const messageList = document.getElementById("messages");
   if (messageList) {
