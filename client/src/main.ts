@@ -97,6 +97,7 @@ function renderMessageForm() {
     event.preventDefault();
     if (chatInput.value.length) {
       socket.emit("message", chatInput.value, joinedRoom);
+      chatForm.reset();
     } else {
     }
   });
