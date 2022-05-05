@@ -27,7 +27,7 @@ function renderNameInput() {
   let inputContent = document.createElement("div");
   inputContent.id = "inputContent";
 
-  let nickNameInputHeader = document.createElement("h1");
+  let nickNameInputHeader = document.createElement("h2");
   nickNameInputHeader.innerHTML = "Enter your nickname";
 
   let nickNameInput = document.createElement("input");
