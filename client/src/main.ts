@@ -78,7 +78,7 @@ function renderRoomInput() {
     socket.emit("join", room);
   });
   sideContainer.append(roomContainer);
-  mainContainer.append(sideContainer, rheader, innerContainer);
+  mainContainer.append(sideContainer, rheader);
   roomContainer.append(roomInputHeader, roomInput, enterBtn);
   document.body.append(mainContainer);
 }
