@@ -9,6 +9,7 @@ export default (io: Server, socket: Socket) => {
     if (broadcastRooms) {
       io.emit("roomList", getRooms(io));
     }
+    console.log("JOINED");
     socket.emit("joined", room);
   });
   socket.on("message", (message, to) => {

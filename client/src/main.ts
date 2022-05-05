@@ -3,8 +3,9 @@ import "./room.css";
 import "./chat.css";
 import { io, Socket } from "socket.io-client";
 import { ServerToClientEvents, ClientToServerEvents } from "../../types";
+import { aside } from "./layout/layout.ts";
 
-const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io({
+export const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io({
   autoConnect: false,
 });
 
@@ -41,6 +42,8 @@ function renderNameInput() {
   logInBtn.addEventListener("click", () => {
     socket.auth = { nickname: nickNameInput.value };
     socket.connect();
+    renderRoomInput();
+    aside();
   });
   container.append(inputContent);
   inputContent.append(nickNameInputHeader, nickNameInput, logInBtn);
@@ -55,9 +58,10 @@ function renderRoomInput() {
 
   let mainContainer = document.createElement("div");
   mainContainer.id = "mainContainer";
+  aside();
 
-  let sideContainer = document.createElement("div");
-  sideContainer.id = "sideContainer";
+  // let sideContainer = document.createElement("div");
+  // sideContainer.id = "sideContainer";
 
   let rheader = document.createElement("div");
   rheader.id = "rheader";
@@ -68,19 +72,19 @@ function renderRoomInput() {
   let roomInput = document.createElement("input");
   roomInput.id = "roomInput";
 
-  let enterBtn = document.createElement("button");
-  enterBtn.id = "enterBtn";
-  enterBtn.innerHTML = "Log in";
-  enterBtn.addEventListener("click", () => {
-    const room = roomInput.value;
-    if (!room.length) {
-      return;
-    }
-    socket.emit("join", room);
-  });
-  sideContainer.append(roomInputHeader, roomInput, enterBtn);
+  // let enterBtn = document.createElement("button");
+  // enterBtn.id = "enterBtn";
+  // enterBtn.innerHTML = "Log in";
+  // enterBtn.addEventListener("click", () => {
+  //   const room = roomInput.value;
+  //   if (!room.length) {
+  //     return;
+  //   }
+  // socket.emit("join", room);
+  // };
+  // sideContainer.append(roomInputHeader, roomInput, enterBtn);
   mainContainer.append(rheader);
-  rcontainer.append(sideContainer, mainContainer);
+  rcontainer.append(mainContainer);
   document.body.append(rcontainer);
 }
 
@@ -91,9 +95,9 @@ function renderMessageForm() {
 
   let mainContainer = document.createElement("div");
   mainContainer.id = "mainContainer";
-
-  let sideContainer = document.createElement("div");
-  sideContainer.id = "sideContainer";
+  aside();
+  // let sideContainer = document.createElement("div");
+  // sideContainer.id = "sideContainer";
 
   let inputButton = document.createElement("div");
   inputButton.id = "inputButton";
@@ -103,11 +107,22 @@ function renderMessageForm() {
   let chatList = document.createElement("ul");
   chatList.id = "messages";
 
+  // let typing = document.createElement("p");
+  // typing.id = "typing";
+  // chatInput.addEventListener("keypress", function () {
+  //   typing.textContent = "typing...";
+  // });
+
   let chatInput = document.createElement("input");
   chatInput.id = "chatInput";
   chatInput.autocomplete = "off";
 
+  // chatInput.addEventListener("change", function () {
+  //   console.log("HI!");
+  // });
+
   let chatForm = document.createElement("form");
+  chatForm.id = "chatForm";
   chatForm.addEventListener("submit", (event) => {
     event.preventDefault();
     if (chatInput.value.length) {
@@ -123,7 +138,7 @@ function renderMessageForm() {
   chatForm.append(chatInput, sendButton);
 
   mainContainer.append(rheader, chatList, chatForm, inputButton);
-  rcontainer.append(sideContainer, mainContainer);
+  rcontainer.append(mainContainer);
   document.body.append(rcontainer);
 }
 
@@ -139,6 +154,7 @@ socket.on("_error", (errorMessage) => {
 
 socket.on("roomList", (rooms) => {
   console.log(rooms);
+  aside();
 });
 
 socket.on("joined", (room) => {
@@ -146,7 +162,6 @@ socket.on("joined", (room) => {
   joinedRoom = room;
   renderMessageForm();
 });
-
 socket.on("connected", (nickname) => {
   nickname = nickname;
   renderRoomInput();
@@ -163,3 +178,5 @@ socket.on("message", (message, from) => {
   }
   window.scrollTo(0, document.body.scrollHeight);
 });
+
+//se till att göra allt i funktioner om möjligt. Se till att socketen är kopplad innan man renderar ut.
