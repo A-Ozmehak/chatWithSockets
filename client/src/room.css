@@ -1,20 +1,13 @@
 #sideContainer {
-  background-image: url("./assets/backgroundVert.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
+  background-color: rgb(216, 27, 109);
   height: 100vh;
   width: 15rem;
-  position: fixed;
-  top: 0;
-  left: 0;
   padding: 1rem;
-  border-right: solid black 0.2rem;
 }
 
-#roomContainer {
+/* #roomContainer {
   position: absolute;
-}
+} */
 
 #rheader {
   background-image: url("./assets/logo.png");
@@ -22,12 +15,24 @@
   background-repeat: no-repeat;
   background-position: right;
   height: 2rem;
-  margin: 1.5rem;
+  margin-right: 1.5rem;
 }
 
+#rcontainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: white;
+}
+#mainContainer {
+  height: 100vh;
+  width: 100%;
+
+  margin: 0;
+}
 #roomInput {
   border-radius: 2rem;
-  background-color: rgb(216, 27, 109);
+  background-color: white;
   border: none;
   height: 2rem;
   width: 10rem;
