@@ -1,4 +1,5 @@
 import "./style.css";
+import "./room.css";
 import { io, Socket } from "socket.io-client";
 import { ServerToClientEvents, ClientToServerEvents } from "../../types";
 
@@ -13,6 +14,7 @@ window.addEventListener("load", () => {
   renderNameInput();
 });
 
+//Get nickname input
 function renderNameInput() {
   document.body.innerHTML = "";
 
@@ -25,8 +27,8 @@ function renderNameInput() {
   let inputContent = document.createElement("div");
   inputContent.id = "inputContent";
 
-  let nickNameInputHeader = document.createElement("h3");
-  nickNameInputHeader.innerHTML = "ENTER YOUR NICKNAME";
+  let nickNameInputHeader = document.createElement("h2");
+  nickNameInputHeader.innerHTML = "Enter your nickname";
 
   let nickNameInput = document.createElement("input");
   nickNameInput.id = "nickNameInput";
@@ -44,16 +46,29 @@ function renderNameInput() {
   document.body.append(header, container);
 }
 
+//Get new created room input
 function renderRoomInput() {
   document.body.innerHTML = "";
+  let roomContainer = document.createElement("div");
+  roomContainer.id = "roomContainer";
 
-  let container = document.createElement("div");
-  let roomInputHeader = document.createElement("h3");
+  let mainContainer = document.createElement("div");
+  mainContainer.id = "mainContainer";
+
+  let sideContainer = document.createElement("div");
+  sideContainer.id = "sideContainer";
+
+  let rheader = document.createElement("div");
+  rheader.id = "rheader";
+
+  let roomInputHeader = document.createElement("h2");
   roomInputHeader.innerHTML = "Room name";
 
   let roomInput = document.createElement("input");
+  roomInput.id = "roomInput";
 
   let enterBtn = document.createElement("button");
+  enterBtn.id = "enterBtn";
   enterBtn.innerHTML = "Log in";
   enterBtn.addEventListener("click", () => {
     const room = roomInput.value;
@@ -62,8 +77,10 @@ function renderRoomInput() {
     }
     socket.emit("join", room);
   });
-  container.append(roomInputHeader, roomInput, enterBtn);
-  document.body.append(container);
+  sideContainer.append(roomContainer);
+  mainContainer.append(sideContainer, rheader);
+  roomContainer.append(roomInputHeader, roomInput, enterBtn);
+  document.body.append(mainContainer);
 }
 
 function renderMessageForm() {
