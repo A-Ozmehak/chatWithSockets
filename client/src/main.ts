@@ -5,7 +5,6 @@ import layout from "../layout/layout";
 import "./room.css";
 import "./chat.css";
 
-
 const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io({
   autoConnect: false,
 });
@@ -159,7 +158,6 @@ function renderMessageForm() {
   sendButton.id = "sendButton";
   sendButton.innerHTML = "Send";
 
-
   sideContainer.append(roomContainer, leaveBtn);
   mainContainer.append(chatList, chatForm);
   mainContent.append(sideContainer, rheader, mainContainer);
@@ -179,18 +177,20 @@ socket.on("_error", (errorMessage) => {
 });
 
 socket.on("roomList", (rooms) => {
-  let aside = document.getElementById('sideContainer') as HTMLElement
-  const list = document.createElement('ul')
-  const el = document.createElement('li')
-  aside.append(list)
-  list.append(el)
-  el.innerHTML = "" + rooms
-
-  console.log(rooms);
+  let aside = document.getElementById("sideContainer") as HTMLElement;
+  const list = document.createElement("ul");
+  const el = document.createElement("li");
+  const br = document.createElement("br");
+  aside.append(list);
+  for (let i = 0; i < rooms.length; i++) {
+    list.append(el);
+    el.innerHTML = `${rooms[i]}`;
+    el.append(br);
+  }
+  console.log(rooms, "------------");
 });
 
 socket.on("joined", (room) => {
-
   alert("you have joined room: " + room);
   console.log("Joined Room", room);
   joinedRoom = room;
@@ -207,7 +207,6 @@ socket.on("message", (message, from) => {
     messageList.append(chatItem);
   }
   window.scrollTo(0, document.body.scrollHeight);
-
 });
 
 socket.on("connected", (nickname) => {

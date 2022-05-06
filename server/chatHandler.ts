@@ -10,6 +10,7 @@ export default (io: Server, socket: Socket) => {
       io.emit("roomList", getRooms(io));
     }
     socket.emit("joined", room);
+    io.emit("roomList", getRooms(io));
   });
   socket.on("message", (message, to) => {
     if (!socket.data.nickname) {
