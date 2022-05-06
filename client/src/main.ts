@@ -160,7 +160,7 @@ function renderMessageForm() {
   sendButton.innerHTML = "Send";
 
 
-  sideContainer.append(roomContainer, icon, leaveBtn);
+  sideContainer.append(roomContainer, leaveBtn);
   mainContainer.append(chatList, chatForm);
   mainContent.append(sideContainer, rheader, mainContainer);
   chatForm.append(chatInput, sendButton);
