@@ -5,6 +5,7 @@ import layout from "../layout/layout";
 import "./room.css";
 import "./chat.css";
 
+
 const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io({
   autoConnect: false,
 });
@@ -79,17 +80,8 @@ export function renderRoomInput() {
   logOutBtn.id = "logOutBtn";
   logOutBtn.innerHTML = "Logout";
 
-  let listOfRooms = document.createElement("ul");
-  listOfRooms.id = "listRooms";
-  let listElement = document.createElement("li");
-  listElement.id = "listWithRooms";
-  sideContainer.append(listOfRooms);
-  listOfRooms.append(listElement);
-
   enterBtn.addEventListener("click", () => {
     const room = roomInput.value;
-
-    listElement.textContent = roomInput.value;
 
     if (!room.length) {
       return;
@@ -102,11 +94,6 @@ export function renderRoomInput() {
     socket.disconnect();
     return renderNameInput();
   });
-
-  // sideContainer.append(roomContainer);
-  // mainContainer.append(sideContainer, rheader);
-  // roomContainer.append(roomInputHeader, roomInput, enterBtn);
-  // document.body.append(mainContainer);
 
   sideContainer.append(roomInputHeader, roomInput, enterBtn, logOutBtn);
   mainContainer.append(rheader, sideContainer);
@@ -147,12 +134,6 @@ function renderMessageForm() {
   chatInput.id = "chatInput";
   chatInput.autocomplete = "off";
 
-  let listOfRooms = document.createElement("ul");
-  listOfRooms.id = "listRooms";
-  let listElement = document.createElement("li");
-  listElement.id = "listWithRooms";
-  listOfRooms.append(listElement);
-
   let chatForm = document.createElement("form");
   chatForm.id = "chatForm";
   chatForm.addEventListener("submit", (event) => {
@@ -162,6 +143,8 @@ function renderMessageForm() {
       chatForm.reset();
     } else {
     }
+    // const rooms = room
+    //  socket.emit("join", rooms);
   });
 
   leaveBtn.addEventListener("click", () => {
@@ -176,22 +159,13 @@ function renderMessageForm() {
   sendButton.id = "sendButton";
   sendButton.innerHTML = "Send";
 
-  // chatForm.append(chatInput, sendButton);
-  // sideContainer.append(roomContainer, listOfRooms);
-  // mainContainer.append(rheader, chatForm, chatList);
-  // roomContainer.append(mainContainer, sideContainer);
-  // document.body.append(roomContainer);
 
-  sideContainer.append(roomContainer, listOfRooms, leaveBtn);
+  sideContainer.append(roomContainer, icon, leaveBtn);
   mainContainer.append(chatList, chatForm);
   mainContent.append(sideContainer, rheader, mainContainer);
   chatForm.append(chatInput, sendButton);
   roomContainer.append(roomInputHeader);
   document.body.append(mainContent);
-
-  // mainContainer.append(rheader, chatList, chatForm, inputButton);
-  // rcontainer.append(mainContainer);
-  // document.body.append(rcontainer);
 }
 
 socket.on("connect_error", (err) => {
@@ -205,10 +179,18 @@ socket.on("_error", (errorMessage) => {
 });
 
 socket.on("roomList", (rooms) => {
+  let aside = document.getElementById('sideContainer') as HTMLElement
+  const list = document.createElement('ul')
+  const el = document.createElement('li')
+  aside.append(list)
+  list.append(el)
+  el.innerHTML = "" + rooms
+
   console.log(rooms);
 });
 
 socket.on("joined", (room) => {
+
   alert("you have joined room: " + room);
   console.log("Joined Room", room);
   joinedRoom = room;
@@ -226,8 +208,6 @@ socket.on("message", (message, from) => {
   }
   window.scrollTo(0, document.body.scrollHeight);
 
-  //joinedRoom = room;
-  //renderMessageForm();
 });
 
 socket.on("connected", (nickname) => {
