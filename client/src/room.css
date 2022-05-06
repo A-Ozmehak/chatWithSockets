@@ -3,6 +3,8 @@
   height: 100vh;
   width: 15rem;
   padding: 1rem;
+  position: fixed;
+  top: 0;
 }
 
 /* #roomContainer {
@@ -15,30 +17,29 @@
   background-repeat: no-repeat;
   background-position: right;
   height: 2rem;
-  margin-right: 1.5rem;
+  margin: 1.5rem;
 }
 
-#rcontainer {
+#roomContainer {
   display: flex;
   flex-direction: row;
   align-items: center;
-  background-color: white;
+  /* background-color: white; */
 }
 #mainContainer {
   height: 100vh;
   width: 100%;
-
   margin: 0;
 }
-#roomInput {
+
+#roomName {
   border-radius: 2rem;
   background-color: white;
   border: none;
   height: 2rem;
-  width: 10rem;
+  width: 12rem;
   margin-top: 1rem;
   margin-bottom: 0.1rem;
-
   padding: 0 1rem;
 }
 
