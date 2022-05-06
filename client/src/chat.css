@@ -64,3 +64,14 @@
   flex-direction: column;
   justify-content: space-between;
 }
+
+.signOut {
+  height: 20px;
+  width: 20px;
+  margin-left: 20rem;
+  color: black;
+  background-color: #fff;
+  position: absolute;
+  top: 5rem;
+  left: 50rem;
+}

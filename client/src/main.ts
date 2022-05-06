@@ -109,8 +109,9 @@ function renderMessageForm() {
   document.body.innerHTML = "";
 
   let icon = document.createElement("i");
-
-  ('<i id="signOutIcon" class="fa-solid fa-arrow-right-from-bracket"></i>');
+  icon.classList.add("signOut");
+  icon.innerHTML =
+    '<i id="signOutIcon" class="fa-solid fa-arrow-right-from-bracket"></i>';
 
   let roomContainer = document.createElement("div");
   roomContainer.id = "roomContainer";
