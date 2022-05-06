@@ -48,11 +48,19 @@
   background-color: #4046c3;
   color: white;
   border-radius: 20px;
-  min-width: 3em;
+  /* min-width: 3em; */
   margin: 1rem;
+  margin-left: 15.3rem;
   height: 2.5rem;
   padding: 0.1rem;
   padding-left: 1rem;
   display: flex;
   align-items: center;
+  width: 60%;
+}
+
+#mainContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
