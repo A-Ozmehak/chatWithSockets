@@ -52,15 +52,25 @@ body {
   width: 15rem;
   margin-top: 1rem;
   padding: 0 1rem;
+  margin-bottom: 1rem;
 }
 
 #logInButton {
-  border-radius: 2rem;
+  border-top-right-radius: 2rem;
+  border-bottom-right-radius: 2rem;
   background-color: #93b39c;
   border: none;
-  height: 2.5rem;
+  height: 2rem;
   width: 8rem;
-  margin-top: 2rem;
+  margin-top: 1rem;
+
+  background: #333;
+  border: none;
+  padding: 0 1rem;
+  margin: 0.25rem;
+  border-radius: 3px;
+  outline: none;
+  color: #fff;
 }
 
 #logInButton:hover {
