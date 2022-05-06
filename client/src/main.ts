@@ -74,7 +74,11 @@ export function renderRoomInput() {
 
   let enterBtn = document.createElement("button");
   enterBtn.id = "enterBtn";
-  enterBtn.innerHTML = "Log in";
+  enterBtn.innerHTML = "Create room";
+
+  let logOutBtn = document.createElement("button");
+  logOutBtn.id = "logOutBtn";
+  logOutBtn.innerHTML = "Logout";
 
   enterBtn.addEventListener("click", () => {
     const room = roomInput.value;
@@ -85,7 +89,13 @@ export function renderRoomInput() {
     socket.emit("join", room);
   });
 
-  sideContainer.append(roomInputHeader, roomInput, enterBtn);
+  logOutBtn.addEventListener("click", () => {
+    //Delete users
+    socket.disconnect();
+    return renderNameInput();
+  });
+
+  sideContainer.append(roomInputHeader, roomInput, enterBtn, logOutBtn);
   mainContainer.append(rheader, sideContainer);
   roomContainer.append(mainContainer);
   document.body.append(roomContainer);
@@ -95,9 +105,9 @@ export function renderRoomInput() {
 function renderMessageForm() {
   document.body.innerHTML = "";
 
-  let icon = document.createElement("i");
-
-  ('<i id="signOutIcon" class="fa-solid fa-arrow-right-from-bracket"></i>');
+  let leaveBtn = document.createElement("button");
+  leaveBtn.id = "leaveBtn";
+  leaveBtn.innerHTML = "Leave room";
 
   let roomContainer = document.createElement("div");
   roomContainer.id = "roomContainer";
@@ -137,11 +147,20 @@ function renderMessageForm() {
     //  socket.emit("join", rooms);
   });
 
+  leaveBtn.addEventListener("click", () => {
+    // if (!user.length) {
+    //   socket.delete
+    // }
+    return renderRoomInput();
+    // socket.leave(room);
+  });
+
   let sendButton = document.createElement("button");
   sendButton.id = "sendButton";
   sendButton.innerHTML = "Send";
 
-  sideContainer.append(roomContainer, icon);
+
+  sideContainer.append(roomContainer, icon, leaveBtn);
   mainContainer.append(chatList, chatForm);
   mainContent.append(sideContainer, rheader, mainContainer);
   chatForm.append(chatInput, sendButton);
@@ -192,6 +211,12 @@ socket.on("message", (message, from) => {
 });
 
 socket.on("connected", (nickname) => {
+  console.log(nickname);
   nickname = nickname;
   renderRoomInput();
+});
+
+socket.on("disconnect", (nickname) => {
+  console.log("user disconnected");
+  console.log(nickname);
 });
