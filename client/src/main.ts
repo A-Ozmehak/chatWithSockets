@@ -93,15 +93,42 @@ export function renderRoomInput() {
     socket.emit("join", room);
   });
 
-  sideContainer.append(roomContainer);
-  mainContainer.append(sideContainer, rheader);
-  roomContainer.append(roomInputHeader, roomInput, enterBtn);
-  document.body.append(mainContainer);
+  // sideContainer.append(roomContainer);
+  // mainContainer.append(sideContainer, rheader);
+  // roomContainer.append(roomInputHeader, roomInput, enterBtn);
+  // document.body.append(mainContainer);
+
+  sideContainer.append(roomInputHeader, roomInput, enterBtn);
+  mainContainer.append(rheader, sideContainer);
+  roomContainer.append(mainContainer);
+  document.body.append(roomContainer);
   layout();
 }
 
 function renderMessageForm() {
   document.body.innerHTML = "";
+
+  let icon = document.createElement("i");
+
+  ('<i id="signOutIcon" class="fa-solid fa-arrow-right-from-bracket"></i>');
+
+  let roomContainer = document.createElement("div");
+  roomContainer.id = "roomContainer";
+
+  let mainContainer = document.createElement("div");
+  mainContainer.id = "mainContainer";
+
+  let mainContent = document.createElement("div");
+  mainContent.id = "mainContent";
+
+  let sideContainer = document.createElement("div");
+  sideContainer.id = "sideContainer";
+
+  let rheader = document.createElement("div");
+  rheader.id = "rheader";
+
+  let roomInputHeader = document.createElement("h2");
+  roomInputHeader.innerHTML = "Rooms";
 
   let chatList = document.createElement("ul");
   chatList.id = "messages";
@@ -109,6 +136,12 @@ function renderMessageForm() {
   let chatInput = document.createElement("input");
   chatInput.id = "chatInput";
   chatInput.autocomplete = "off";
+
+  let listOfRooms = document.createElement("ul");
+  listOfRooms.id = "listRooms";
+  let listElement = document.createElement("li");
+  listElement.id = "listWithRooms";
+  listOfRooms.append(listElement);
 
   let chatForm = document.createElement("form");
   chatForm.id = "chatForm";
@@ -120,13 +153,27 @@ function renderMessageForm() {
     } else {
     }
   });
+
   let sendButton = document.createElement("button");
   sendButton.id = "sendButton";
   sendButton.innerHTML = "Send";
 
+  // chatForm.append(chatInput, sendButton);
+  // sideContainer.append(roomContainer, listOfRooms);
+  // mainContainer.append(rheader, chatForm, chatList);
+  // roomContainer.append(mainContainer, sideContainer);
+  // document.body.append(roomContainer);
+
+  sideContainer.append(roomContainer, listOfRooms, icon);
+  mainContainer.append(chatList, chatForm);
+  mainContent.append(sideContainer, rheader, mainContainer);
   chatForm.append(chatInput, sendButton);
-  document.body.append(chatList, chatForm);
-  layout();
+  roomContainer.append(roomInputHeader);
+  document.body.append(mainContent);
+
+  // mainContainer.append(rheader, chatList, chatForm, inputButton);
+  // rcontainer.append(mainContainer);
+  // document.body.append(rcontainer);
 }
 
 socket.on("connect_error", (err) => {
