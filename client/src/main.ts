@@ -12,6 +12,7 @@ const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io({
 let roomList: string[];
 // let nickname: string;
 let joinedRoom: string;
+let savedNick: string;
 
 window.addEventListener("load", () => {
   renderNameInput();
@@ -64,48 +65,53 @@ export function renderRoomInput() {
   let asideHeader = document.createElement("header");
   asideHeader.id = "asideHeader";
 
-  //   let roomContainer = document.createElement("div");
-  //   roomContainer.id = "roomContainer";
+  let welcomeMsg = document.createElement("p");
+  welcomeMsg.innerText = `Welcome ${savedNick}`;
+  welcomeMsg.id = "welcomeMsg";
 
-  //   let mainContainer = document.createElement("div");
-  //   mainContainer.id = "mainContainer";
-
-  //   let sideContainer = document.createElement("div");
-  //   sideContainer.id = "sideContainer";
-
-  //   let rheader = document.createElement("div");
-  //   rheader.id = "rheader";
+  let roomList = document.createElement("h2");
+  roomList.innerHTML = "Rooms";
+  roomList.id = "roomList";
 
   //   let roomInputHeader = document.createElement("h2");
   //   roomInputHeader.innerHTML = "Room name";
 
-  //   let roomInput = document.createElement("input");
-  //   roomInput.id = "roomName";
+  let roomInput = document.createElement("input");
+  roomInput.placeholder = "Create room..";
+  roomInput.id = "roomName";
 
-  //   let enterBtn = document.createElement("button");
-  //   enterBtn.id = "enterBtn";
-  //   enterBtn.innerHTML = "Create room";
+  let enterBtn = document.createElement("button");
+  enterBtn.id = "enterBtn";
+  enterBtn.innerHTML = "Create room";
 
-  //   let logOutBtn = document.createElement("button");
-  //   logOutBtn.id = "logOutBtn";
-  //   logOutBtn.innerHTML = "Logout";
+  let profile = document.createElement("div");
+  profile.id = "profile";
 
-  //   enterBtn.addEventListener("click", () => {
-  //     const room = roomInput.value;
+  let logOutBtn = document.createElement("button");
+  logOutBtn.id = "logOutBtn";
+  logOutBtn.innerHTML = "Logout";
 
-  //     if (!room.length) {
-  //       return;
-  //     }
-  //     socket.emit("join", room);
-  //   });
+  let profileName = document.createElement("p");
+  profileName.innerHTML = `${savedNick}`;
+  profileName.id = "profileName";
 
-  //   logOutBtn.addEventListener("click", () => {
-  //     //Delete users
-  //     socket.disconnect();
-  //     return renderNameInput();
-  //   });
+  enterBtn.addEventListener("click", () => {
+    const room = roomInput.value;
+
+    if (!room.length) {
+      return;
+    }
+    socket.emit("join", room);
+  });
+
+  logOutBtn.addEventListener("click", () => {
+    //Delete users
+    socket.disconnect();
+    return renderNameInput();
+  });
   mainContainer.append(aside, chatContainer);
-  aside.append(asideHeader);
+  aside.append(asideHeader, welcomeMsg, roomList, roomInput, enterBtn, profile);
+  profile.append(profileName, logOutBtn);
   document.body.append(mainContainer);
   //   sideContainer.append(roomInputHeader, roomInput, enterBtn, logOutBtn);
   //   mainContainer.append(rheader, sideContainer);

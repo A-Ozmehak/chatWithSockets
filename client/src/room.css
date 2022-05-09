@@ -1,40 +1,13 @@
-#sideContainer {
-  background-color: rgb(216, 27, 109);
-  height: 100vh;
-  width: 15rem;
-  padding: 1rem;
-  position: fixed;
-  top: 0;
-}
-
-/* #roomContainer {
-  position: absolute;
-} */
-
-#rheader {
-  background-image: url("./assets/logo.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: right;
-  height: 2rem;
-  margin: 1.5rem;
-}
-
 #roomContainer {
   display: flex;
   flex-direction: row;
   align-items: center;
   /* background-color: white; */
 }
-#mainContainer {
-  height: 100vh;
-  width: 100%;
-  margin: 0;
-}
 
 #roomName {
   border-radius: 2rem;
-  background-color: white;
+  /* background-color: white; */
   border: none;
   height: 2rem;
   width: 12rem;
@@ -62,29 +35,6 @@
 }
 
 #enterBtn:hover {
-  box-shadow: 0 1rem 1.5rem 0 rgba(0, 0, 0, 0.24),
-    0 1.5rem 5rem 0 rgba(0, 0, 0, 0.19);
-}
-
-#logOutBtn {
-  border-top-right-radius: 2rem;
-  border-bottom-right-radius: 2rem;
-  background-color: #93b39c;
-  border: none;
-  height: 2rem;
-  width: 8rem;
-  margin-top: 1rem;
-
-  background: #333;
-  border: none;
-  padding: 0 1rem;
-  margin: 0.25rem;
-  border-radius: 3px;
-  outline: none;
-  color: #fff;
-}
-
-#logOutBtn:hover {
   box-shadow: 0 1rem 1.5rem 0 rgba(0, 0, 0, 0.24),
     0 1.5rem 5rem 0 rgba(0, 0, 0, 0.19);
 }
