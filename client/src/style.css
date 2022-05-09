@@ -56,16 +56,11 @@ body {
 }
 
 #logInButton {
-  border-top-right-radius: 2rem;
-  border-bottom-right-radius: 2rem;
-  background-color: #93b39c;
   border: none;
   height: 2rem;
   width: 8rem;
   margin-top: 1rem;
-
   background: #333;
-  border: none;
   padding: 0 1rem;
   margin: 0.25rem;
   border-radius: 3px;
@@ -85,8 +80,13 @@ body {
 }
 
 #chatContainer {
+  background-image: url("./assets/chat-dots.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
   height: 100%;
   background-color: #fff;
+  display: flex;
 }
 
 #aside {
@@ -95,6 +95,7 @@ body {
   height: 100%;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 #asideHeader {
@@ -113,6 +114,10 @@ body {
   text-align: center;
 }
 
+#roomInputContainer {
+  margin-left: 0.5rem;
+}
+
 #roomList {
   margin-left: 1rem;
 }
@@ -123,6 +128,7 @@ body {
   align-items: center;
   position: absolute;
   bottom: 0;
+  width: 100%;
 }
 
 #logOutBtn {
@@ -135,9 +141,6 @@ body {
   border-radius: 3px;
   outline: none;
   color: #fff;
-  position: absolute;
-  bottom: 0;
-  right: 0;
 }
 
 #logOutBtn:hover {

@@ -73,8 +73,8 @@ export function renderRoomInput() {
   roomList.innerHTML = "Rooms";
   roomList.id = "roomList";
 
-  //   let roomInputHeader = document.createElement("h2");
-  //   roomInputHeader.innerHTML = "Room name";
+  let roomInputContainer = document.createElement("div");
+  roomInputContainer.id = "roomInputContainer";
 
   let roomInput = document.createElement("input");
   roomInput.placeholder = "Create room..";
@@ -105,23 +105,24 @@ export function renderRoomInput() {
   });
 
   logOutBtn.addEventListener("click", () => {
-    //Delete users
     socket.disconnect();
     return renderNameInput();
   });
+
   mainContainer.append(aside, chatContainer);
-  aside.append(asideHeader, welcomeMsg, roomList, roomInput, enterBtn, profile);
+  aside.append(asideHeader, welcomeMsg, roomList, roomInputContainer, profile);
+  roomInputContainer.append(roomInput, enterBtn);
   profile.append(profileName, logOutBtn);
   document.body.append(mainContainer);
   //   sideContainer.append(roomInputHeader, roomInput, enterBtn, logOutBtn);
   //   mainContainer.append(rheader, sideContainer);
   //   roomContainer.append(mainContainer);
   //   document.body.append(roomContainer);
-  //   layout();
+  // layout();
 }
 
 function renderMessageForm() {
-  document.body.innerHTML = "";
+  // document.body.innerHTML = "";
 
   let leaveBtn = document.createElement("button");
   leaveBtn.id = "leaveBtn";
