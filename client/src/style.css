@@ -1,10 +1,10 @@
 body {
-  background-size: cover;
+  /* background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
   width: 100%;
   min-height: 100vh;
-  background-image: url("./assets/backgroundHoriz.jpg");
+  background-image: url("./assets/backgroundHoriz.jpg"); */
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
     Arial, sans-serif;
@@ -76,4 +76,22 @@ body {
 #logInButton:hover {
   box-shadow: 0 1rem 1.5rem 0 rgba(0, 0, 0, 0.24),
     0 1.5rem 5rem 0 rgba(0, 0, 0, 0.19);
+}
+#mainContainer {
+  display: flex;
+  width: 100%;
+}
+#chatContainer {
+  background-color: #fff;
+}
+#aside {
+  width: 15rem;
+  background-color: blue;
+  height: 100%;
+}
+
+#asideHeader {
+  background-image: url("./assets/logo.png");
+  height: 4rem;
+  width: auto;
 }
