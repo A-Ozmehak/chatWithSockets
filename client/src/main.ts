@@ -11,7 +11,6 @@ const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io({
 
 let savedRoomList: [] = [];
 let savedNick: string;
-// let nickname: string;
 let joinedRoom: string;
 
 window.addEventListener("load", () => {
@@ -172,7 +171,6 @@ function renderMessageForm() {
   sendButton.id = "sendButton";
   sendButton.innerHTML = "Send";
 
-
   sideContainer.prepend(roomContainer, leaveBtn);
   mainContainer.append(chatList, chatForm);
   mainContent.append(sideContainer, rheader, mainContainer);
@@ -207,16 +205,18 @@ socket.on("roomList", (rooms) => {
   aside.append(list);
   console.log(rooms, "------------", list);
 
-  let aside = document.getElementById('sideContainer') as HTMLElement;
-  const list = document.createElement('ul');
-    const el = document.createElement('li');
-    aside.append(list);
-    list.append(el);
-    el.innerHTML = "" + rooms;
+ // let aside = document.getElementById('sideContainer') as HTMLElement;
+  //const list = document.createElement('ul');
+  //  const el = document.createElement('li');
+  //  aside.append(list);
+  //  list.append(el);
+   // el.innerHTML = "" + rooms;
 
- // @ts-ignore
+
+
+  // @ts-ignore
   savedRoomList.push(rooms)
-  console.log(rooms);
+
 
 });
 
@@ -249,7 +249,6 @@ socket.on("connected", (nickname) => {
     usersList.append(listElement);
     listElement.textContent = nickname;
   }
-
     renderRoomInput();
 });
 
