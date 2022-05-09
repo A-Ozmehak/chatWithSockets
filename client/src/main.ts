@@ -18,7 +18,7 @@ window.addEventListener("load", () => {
   layout();
 });
 
-//Get nickname input
+//Renders the form for nickname
 function renderNameInput() {
   document.body.innerHTML = "";
 
@@ -53,6 +53,7 @@ function renderNameInput() {
   document.body.append(header, container);
 }
 
+//Renders the page where you create a room
 function createRoom() {
   document.body.innerHTML = "";
 
@@ -91,6 +92,7 @@ function createRoom() {
   document.body.append(createRoomContainer);
 }
 
+//Renders the list with all the rooms
 function roomsList() {
   let aside = document.createElement('aside');
   aside.id = 'sideContainer';
@@ -123,6 +125,7 @@ function roomsList() {
   document.body.append(aside, rheader);
 }
 
+//Renders the chat page with a form and the chat boxes
 function renderMessageForm() {
   document.body.innerHTML = "";
   roomsList()
@@ -161,7 +164,7 @@ function renderMessageForm() {
 }
 
 
-
+//Error if invalid nickname
 socket.on("connect_error", (err) => {
   if (err.message == "Invalid nickname") {
     alert("Invalid nickname");
@@ -194,6 +197,7 @@ socket.on("roomList", (rooms) => {
   console.log(rooms)
 });
 
+//Renders the form for the chat when the user has joined a room
 socket.on("joined", (room) => {
   alert("you have joined room: " + room);
   console.log("Joined Room", room);
@@ -211,6 +215,7 @@ socket.on("joined", (room) => {
   renderMessageForm();
 });
 
+//Prints out the nickname and the chatmessage
 socket.on("message", (message, from) => {
   const chatItem = document.createElement("li");
   chatItem.id = "chatItem";
@@ -237,6 +242,7 @@ socket.on("connected", (nickname) => {
   createRoom()
 });
 
+//Shows when user disconnects in the console
 socket.on("disconnect", (nickname) => {
   console.log("user disconnected");
   console.log(nickname);
