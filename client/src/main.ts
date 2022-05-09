@@ -9,7 +9,7 @@ const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io({
   autoConnect: false,
 });
 
-let savedRoomList: [] = [];
+let savedRoomList: string[] = [];
 let savedNick: string;
 let joinedRoom: string;
 
@@ -133,10 +133,14 @@ function renderMessageForm() {
   leaveBtn.id = "leaveBtn";
   leaveBtn.innerHTML = "Leave room";
 
+  let listContent = document.createElement('ul');
+  listContent.id = "listContent";
+
   savedRoomList.forEach(el => {
-    let listContent = document.createElement('p');
-    listContent.innerText = el;
+    let listOfRooms = document.createElement('li');
+    listOfRooms.innerText = el;
     sideContainer.append(listContent)
+    listContent.append(listOfRooms)
   })
 
   let chatList = document.createElement("ul");
@@ -190,9 +194,8 @@ socket.on("_error", (errorMessage) => {
 });
 
 socket.on("roomList", (rooms) => {
-
  let aside = document.getElementById("sideContainer") as HTMLElement;
-  const list = document.createElement("ul");
+  let list = document.getElementById("roomList");
 
   for (let i = 0; i < rooms.length; i++) {
     const el = document.createElement("li");
@@ -200,24 +203,14 @@ socket.on("roomList", (rooms) => {
     el.addEventListener("click", () => {
       socket.emit("join", rooms[i]);
     });
-    list.append(el);
+    if (list) {
+      list.append(el);
+      aside.append(list);
+    }
+
   }
-  aside.append(list);
-  console.log(rooms, "------------", list);
-
- // let aside = document.getElementById('sideContainer') as HTMLElement;
-  //const list = document.createElement('ul');
-  //  const el = document.createElement('li');
-  //  aside.append(list);
-  //  list.append(el);
-   // el.innerHTML = "" + rooms;
-
-
-
-  // @ts-ignore
-  savedRoomList.push(rooms)
-
-
+  console.log(rooms);
+  savedRoomList = rooms;
 });
 
 socket.on("joined", (room) => {
