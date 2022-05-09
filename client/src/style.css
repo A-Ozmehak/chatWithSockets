@@ -39,9 +39,7 @@ body {
   justify-content: center;
   background-color: rgba(255, 255, 255, 0.8);
   border-radius: 1rem;
-  padding: 2rem;
-  padding-right: 4rem;
-  padding-left: 4rem;
+  padding: 2rem 4rem;
 }
 
 #nickNameInput {
@@ -56,19 +54,12 @@ body {
 }
 
 #logInButton {
-  border-top-right-radius: 2rem;
-  border-bottom-right-radius: 2rem;
-  background-color: #93b39c;
-  border: none;
   height: 2rem;
   width: 8rem;
-  margin-top: 1rem;
-
   background: #333;
-  border: none;
   padding: 0 1rem;
   margin: 0.25rem;
-  border-radius: 3px;
+  border-radius: 10px;
   outline: none;
   color: #fff;
 }

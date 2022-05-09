@@ -7,10 +7,6 @@
   top: 0;
 }
 
-/* #roomContainer {
-  position: absolute;
-} */
-
 #rheader {
   background-image: url("./assets/logo.png");
   background-size: contain;
@@ -20,12 +16,6 @@
   margin: 1.5rem;
 }
 
-#roomContainer {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  /* background-color: white; */
-}
 #mainContainer {
   height: 100vh;
   width: 100%;
@@ -44,18 +34,12 @@
 }
 
 #enterBtn {
-  border-top-right-radius: 2rem;
-  border-bottom-right-radius: 2rem;
-  background-color: #93b39c;
   border: none;
   height: 2rem;
   width: 8rem;
-  margin-top: 1rem;
-
   background: #333;
-  border: none;
   padding: 0 1rem;
-  margin: 0.25rem;
+  margin: 1rem 0.25rem;
   border-radius: 3px;
   outline: none;
   color: #fff;
@@ -67,18 +51,12 @@
 }
 
 #logOutBtn {
-  border-top-right-radius: 2rem;
-  border-bottom-right-radius: 2rem;
-  background-color: #93b39c;
-  border: none;
   height: 2rem;
   width: 8rem;
-  margin-top: 1rem;
-
   background: #333;
   border: none;
   padding: 0 1rem;
-  margin: 0.25rem;
+  margin: 1rem 0.25rem;
   border-radius: 3px;
   outline: none;
   color: #fff;

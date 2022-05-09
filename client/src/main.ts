@@ -173,8 +173,8 @@ socket.on("_error", (errorMessage) => {
 });
 
 socket.on("roomList", (rooms) => {
- let aside = document.getElementById("sideContainer") as HTMLElement;
-  let list = document.getElementById("roomList");
+ // let aside = document.getElementById("sideContainer") as HTMLElement;
+ //  let list = document.getElementById("roomList");
 
   // for (let i = 0; i < rooms.length; i++) {
   //   const el = document.createElement("li");
@@ -198,6 +198,16 @@ socket.on("joined", (room) => {
   alert("you have joined room: " + room);
   console.log("Joined Room", room);
   joinedRoom = room;
+
+  let mainContainer = document.getElementById('mainContainer')
+  if (mainContainer) {
+    let roomsName = document.createElement('p');
+    roomsName.innerHTML = room;
+    mainContainer.append(roomsName)
+  }
+
+  console.log(room)
+
   renderMessageForm();
 });
 

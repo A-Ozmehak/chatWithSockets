@@ -1,31 +1,22 @@
 #chatInput {
-  border-top-left-radius: 2rem;
-  border-bottom-left-radius: 2rem;
   background-color: #72ebb4;
   border: none;
   height: 2rem;
-  margin-top: 1rem;
   width: 50%;
   padding: 0 1rem;
-  border: none;
-  padding: 0 1rem;
   border-radius: 2rem;
-  margin: 0.25rem;
+  margin: 0.25rem 0 3rem 0;
 }
-#sendButton {
-  border-top-right-radius: 2rem;
-  border-bottom-right-radius: 2rem;
 
+#sendButton {
   border: none;
   height: 2rem;
   width: 8rem;
   margin-top: 1rem;
-
   background: #333;
-  border: none;
   padding: 0 1rem;
   margin: 0.25rem;
-  border-radius: 3px;
+  border-radius: 10px;
   outline: none;
   color: #fff;
 }
@@ -45,7 +36,6 @@
   height: 3rem;
   box-sizing: border-box;
   backdrop-filter: blur(10px);
-  display: flex;
   justify-content: center;
 }
 
@@ -53,36 +43,22 @@
   background-color: #72ebb4;
   color: rgb(0, 0, 0);
   border-radius: 20px;
-  /* min-width: 3em; */
-  margin: 1rem;
-  margin-left: 15.3rem;
+  margin: 1rem 1rem 1rem 15.3rem;
   height: 2.5rem;
-  padding: 0.1rem;
-  padding-left: 1rem;
+  padding: 0.1rem 0.1rem 0.1rem 1rem;
   display: flex;
   align-items: center;
   width: 60%;
   box-shadow: 1px 3px 7px 3px #888888;
 }
 
-#mainContent {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
 #leaveBtn {
-  border-top-right-radius: 2rem;
-  border-bottom-right-radius: 2rem;
   border: none;
   height: 2rem;
   width: 8rem;
-  margin-top: 1rem;
-
   background: #333;
-  border: none;
   padding: 0 1rem;
-  margin: 0.25rem;
+  margin: 1rem 0.25rem 0.25rem 0.25rem;
   border-radius: 3px;
   outline: none;
   color: #fff;
