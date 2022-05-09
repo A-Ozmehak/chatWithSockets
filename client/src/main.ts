@@ -107,6 +107,8 @@ function roomsList() {
   savedRoomList.forEach(el => {
     let listOfRooms = document.createElement('li');
     listOfRooms.innerText = el;
+    listContent.append(listOfRooms);
+  })
 
   let leaveBtn = document.createElement("button");
   leaveBtn.id = "leaveBtn";
@@ -117,10 +119,8 @@ function roomsList() {
     createRoom()
   });
 
-    listContent.append(listOfRooms);
-    aside.append(roomInputHeader, listContent, leaveBtn)
-    document.body.append(aside, rheader);
-  })
+  aside.append(roomInputHeader, listContent, leaveBtn)
+  document.body.append(aside, rheader);
 }
 
 function renderMessageForm() {
