@@ -54,7 +54,7 @@ function renderNameInput() {
 export function renderRoomInput() {
   document.body.innerHTML = "";
 
-  let welcomeMsg = document.createElement('p');
+  let welcomeMsg = document.createElement("p");
   welcomeMsg.innerText = `Welcome ${savedNick}`;
 
   let roomContainer = document.createElement("div");
@@ -83,7 +83,7 @@ export function renderRoomInput() {
   logOutBtn.id = "logOutBtn";
   logOutBtn.innerHTML = "Logout";
 
-  let listOfUsers = document.createElement('ul');
+  let listOfUsers = document.createElement("ul");
   listOfUsers.id = "usersList";
 
   enterBtn.addEventListener("click", () => {
@@ -101,7 +101,14 @@ export function renderRoomInput() {
     return renderNameInput();
   });
 
-  sideContainer.append(roomInputHeader, roomInput, enterBtn, logOutBtn, listOfUsers, welcomeMsg);
+  sideContainer.append(
+    roomInputHeader,
+    roomInput,
+    enterBtn,
+    logOutBtn,
+    listOfUsers,
+    welcomeMsg
+  );
   mainContainer.append(rheader, sideContainer);
   roomContainer.append(mainContainer);
   document.body.append(roomContainer);
@@ -142,6 +149,10 @@ function renderMessageForm() {
     sideContainer.append(listContent)
     listContent.append(listOfRooms)
   })
+
+  leaveBtn.addEventListener("click", () => {
+    socket.emit("leave");
+  });
 
   let chatList = document.createElement("ul");
   chatList.id = "messages";
@@ -203,6 +214,7 @@ socket.on("roomList", (rooms) => {
     el.addEventListener("click", () => {
       socket.emit("join", rooms[i]);
     });
+
     if (list) {
       list.append(el);
       aside.append(list);
@@ -211,6 +223,10 @@ socket.on("roomList", (rooms) => {
   }
   console.log(rooms);
   savedRoomList = rooms;
+
+    list.append(el);
+  }
+  aside.append(list);
 });
 
 socket.on("joined", (room) => {
@@ -224,6 +240,7 @@ socket.on("message", (message, from) => {
   const chatItem = document.createElement("li");
   chatItem.id = "chatItem";
   chatItem.textContent = from.nickname + ": " + message;
+  console.log("hejsan");
 
   const messageList = document.getElementById("messages");
   if (messageList) {
@@ -236,13 +253,13 @@ socket.on("connected", (nickname) => {
   console.log(nickname);
   nickname = nickname;
 
-  const usersList = document.getElementById('usersList');
+  const usersList = document.getElementById("usersList");
   if (usersList) {
-    const listElement = document.createElement('li');
+    const listElement = document.createElement("li");
     usersList.append(listElement);
     listElement.textContent = nickname;
   }
-    renderRoomInput();
+  renderRoomInput();
 });
 
 socket.on("disconnect", (nickname) => {
