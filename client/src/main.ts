@@ -179,15 +179,17 @@ socket.on("_error", (errorMessage) => {
 socket.on("roomList", (rooms) => {
   let aside = document.getElementById("sideContainer") as HTMLElement;
   const list = document.createElement("ul");
-  const el = document.createElement("li");
-  const br = document.createElement("br");
-  aside.append(list);
+
   for (let i = 0; i < rooms.length; i++) {
-    list.append(el);
+    const el = document.createElement("li");
     el.innerHTML = `${rooms[i]}`;
-    el.append(br);
+    el.addEventListener("click", () => {
+      socket.emit("join", rooms[i]);
+    });
+    list.append(el);
   }
-  console.log(rooms, "------------");
+  aside.append(list);
+  console.log(rooms, "------------", list);
 });
 
 socket.on("joined", (room) => {

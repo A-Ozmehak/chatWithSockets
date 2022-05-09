@@ -8,6 +8,5 @@ export function getRooms(io: Server) {
       rooms.push(id);
     }
   }
-  console.log(rooms);
   return rooms;
 }
