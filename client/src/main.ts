@@ -9,7 +9,8 @@ const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io({
   autoConnect: false,
 });
 
-let roomList: string[];
+let savedRoomList: [] = [];
+let savedNick: string;
 // let nickname: string;
 let joinedRoom: string;
 
@@ -42,6 +43,7 @@ function renderNameInput() {
   logInBtn.innerHTML = "Continue";
 
   logInBtn.addEventListener("click", () => {
+    savedNick = nickNameInput.value;
     socket.auth = { nickname: nickNameInput.value };
     socket.connect();
   });
@@ -52,6 +54,9 @@ function renderNameInput() {
 
 export function renderRoomInput() {
   document.body.innerHTML = "";
+
+  let welcomeMsg = document.createElement('p');
+  welcomeMsg.innerText = `Welcome ${savedNick}`;
 
   let roomContainer = document.createElement("div");
   roomContainer.id = "roomContainer";
@@ -79,6 +84,9 @@ export function renderRoomInput() {
   logOutBtn.id = "logOutBtn";
   logOutBtn.innerHTML = "Logout";
 
+  let listOfUsers = document.createElement('ul');
+  listOfUsers.id = "usersList";
+
   enterBtn.addEventListener("click", () => {
     const room = roomInput.value;
 
@@ -94,7 +102,7 @@ export function renderRoomInput() {
     return renderNameInput();
   });
 
-  sideContainer.append(roomInputHeader, roomInput, enterBtn, logOutBtn);
+  sideContainer.append(roomInputHeader, roomInput, enterBtn, logOutBtn, listOfUsers, welcomeMsg);
   mainContainer.append(rheader, sideContainer);
   roomContainer.append(mainContainer);
   document.body.append(roomContainer);
@@ -103,10 +111,6 @@ export function renderRoomInput() {
 
 function renderMessageForm() {
   document.body.innerHTML = "";
-
-  let leaveBtn = document.createElement("button");
-  leaveBtn.id = "leaveBtn";
-  leaveBtn.innerHTML = "Leave room";
 
   let roomContainer = document.createElement("div");
   roomContainer.id = "roomContainer";
@@ -125,6 +129,16 @@ function renderMessageForm() {
 
   let roomInputHeader = document.createElement("h2");
   roomInputHeader.innerHTML = "Rooms";
+
+  let leaveBtn = document.createElement("button");
+  leaveBtn.id = "leaveBtn";
+  leaveBtn.innerHTML = "Leave room";
+
+  savedRoomList.forEach(el => {
+    let listContent = document.createElement('p');
+    listContent.innerText = el;
+    sideContainer.append(listContent)
+  })
 
   let chatList = document.createElement("ul");
   chatList.id = "messages";
@@ -158,7 +172,8 @@ function renderMessageForm() {
   sendButton.id = "sendButton";
   sendButton.innerHTML = "Send";
 
-  sideContainer.append(roomContainer, leaveBtn);
+
+  sideContainer.prepend(roomContainer, leaveBtn);
   mainContainer.append(chatList, chatForm);
   mainContent.append(sideContainer, rheader, mainContainer);
   chatForm.append(chatInput, sendButton);
@@ -177,7 +192,8 @@ socket.on("_error", (errorMessage) => {
 });
 
 socket.on("roomList", (rooms) => {
-  let aside = document.getElementById("sideContainer") as HTMLElement;
+
+ let aside = document.getElementById("sideContainer") as HTMLElement;
   const list = document.createElement("ul");
 
   for (let i = 0; i < rooms.length; i++) {
@@ -190,6 +206,18 @@ socket.on("roomList", (rooms) => {
   }
   aside.append(list);
   console.log(rooms, "------------", list);
+
+  let aside = document.getElementById('sideContainer') as HTMLElement;
+  const list = document.createElement('ul');
+    const el = document.createElement('li');
+    aside.append(list);
+    list.append(el);
+    el.innerHTML = "" + rooms;
+
+ // @ts-ignore
+  savedRoomList.push(rooms)
+  console.log(rooms);
+
 });
 
 socket.on("joined", (room) => {
@@ -214,7 +242,15 @@ socket.on("message", (message, from) => {
 socket.on("connected", (nickname) => {
   console.log(nickname);
   nickname = nickname;
-  renderRoomInput();
+
+  const usersList = document.getElementById('usersList');
+  if (usersList) {
+    const listElement = document.createElement('li');
+    usersList.append(listElement);
+    listElement.textContent = nickname;
+  }
+
+    renderRoomInput();
 });
 
 socket.on("disconnect", (nickname) => {
