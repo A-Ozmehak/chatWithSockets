@@ -6,6 +6,7 @@ export default (io: Server, socket: Socket) => {
     const broadcastRooms: boolean = !getRooms(io).includes(room);
     socket.join(room);
 
+    // Skicka ut rumslista endast när ett nytt rum skapats
     if (broadcastRooms) {
       io.emit("roomList", getRooms(io));
     }

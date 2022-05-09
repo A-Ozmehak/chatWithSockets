@@ -172,6 +172,7 @@ function renderMessageForm() {
   sendButton.id = "sendButton";
   sendButton.innerHTML = "Send";
 
+
   sideContainer.prepend(roomContainer, leaveBtn);
   mainContainer.append(chatList, chatForm);
   mainContent.append(sideContainer, rheader, mainContainer);
@@ -191,6 +192,21 @@ socket.on("_error", (errorMessage) => {
 });
 
 socket.on("roomList", (rooms) => {
+
+ let aside = document.getElementById("sideContainer") as HTMLElement;
+  const list = document.createElement("ul");
+
+  for (let i = 0; i < rooms.length; i++) {
+    const el = document.createElement("li");
+    el.innerHTML = `${rooms[i]}`;
+    el.addEventListener("click", () => {
+      socket.emit("join", rooms[i]);
+    });
+    list.append(el);
+  }
+  aside.append(list);
+  console.log(rooms, "------------", list);
+
   let aside = document.getElementById('sideContainer') as HTMLElement;
   const list = document.createElement('ul');
     const el = document.createElement('li');
@@ -201,6 +217,7 @@ socket.on("roomList", (rooms) => {
  // @ts-ignore
   savedRoomList.push(rooms)
   console.log(rooms);
+
 });
 
 socket.on("joined", (room) => {
