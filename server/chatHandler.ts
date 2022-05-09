@@ -3,6 +3,8 @@ import { getRooms } from "./rooms";
 
 export default (io: Server, socket: Socket) => {
   socket.on("join", (room) => {
+    leaveRooms(socket);
+
     const broadcastRooms: boolean = !getRooms(io).includes(room);
     socket.join(room);
 
@@ -20,5 +22,16 @@ export default (io: Server, socket: Socket) => {
       id: socket.id,
       nickname: socket.data.nickname,
     });
+  });
+  socket.on("leave", () => {
+    leaveRooms(socket);
+  });
+};
+
+const leaveRooms = (socket: Socket) => {
+  socket.rooms.forEach((room) => {
+    if (room !== socket.id) {
+      socket.leave(room);
+    }
   });
 };
