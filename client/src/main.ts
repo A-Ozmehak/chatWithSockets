@@ -43,34 +43,24 @@ function renderNameInput() {
 
   logInBtn.addEventListener("click", () => {
     savedNick = nickNameInput.value;
+
     socket.auth = { nickname: nickNameInput.value };
     socket.connect();
+
   });
   container.append(inputContent);
   inputContent.append(nickNameInputHeader, nickNameInput, logInBtn);
   document.body.append(header, container);
 }
 
-export function renderRoomInput() {
+function createRoom() {
   document.body.innerHTML = "";
+
+  let createRoomContainer = document.createElement('aside');
+  createRoomContainer.id = 'sideContainer';
 
   let welcomeMsg = document.createElement("p");
   welcomeMsg.innerText = `Welcome ${savedNick}`;
-
-  let roomContainer = document.createElement("div");
-  roomContainer.id = "roomContainer";
-
-  let mainContainer = document.createElement("div");
-  mainContainer.id = "mainContainer";
-
-  let sideContainer = document.createElement("div");
-  sideContainer.id = "sideContainer";
-
-  let rheader = document.createElement("div");
-  rheader.id = "rheader";
-
-  let roomInputHeader = document.createElement("h2");
-  roomInputHeader.innerHTML = "Room name";
 
   let roomInput = document.createElement("input");
   roomInput.id = "roomName";
@@ -82,9 +72,6 @@ export function renderRoomInput() {
   let logOutBtn = document.createElement("button");
   logOutBtn.id = "logOutBtn";
   logOutBtn.innerHTML = "Logout";
-
-  let listOfUsers = document.createElement("ul");
-  listOfUsers.id = "usersList";
 
   enterBtn.addEventListener("click", () => {
     const room = roomInput.value;
@@ -100,35 +87,13 @@ export function renderRoomInput() {
     socket.disconnect();
     return renderNameInput();
   });
-
-  sideContainer.append(
-    roomInputHeader,
-    roomInput,
-    enterBtn,
-    logOutBtn,
-    listOfUsers,
-    welcomeMsg
-  );
-  mainContainer.append(rheader, sideContainer);
-  roomContainer.append(mainContainer);
-  document.body.append(roomContainer);
-  layout();
+  createRoomContainer.append(welcomeMsg, roomInput, enterBtn, logOutBtn);
+  document.body.append(createRoomContainer);
 }
 
-function renderMessageForm() {
-  document.body.innerHTML = "";
-
-  let roomContainer = document.createElement("div");
-  roomContainer.id = "roomContainer";
-
-  let mainContainer = document.createElement("div");
-  mainContainer.id = "mainContainer";
-
-  let mainContent = document.createElement("div");
-  mainContent.id = "mainContent";
-
-  let sideContainer = document.createElement("div");
-  sideContainer.id = "sideContainer";
+function roomsList() {
+  let aside = document.createElement('aside');
+  aside.id = 'sideContainer';
 
   let rheader = document.createElement("div");
   rheader.id = "rheader";
@@ -136,23 +101,37 @@ function renderMessageForm() {
   let roomInputHeader = document.createElement("h2");
   roomInputHeader.innerHTML = "Rooms";
 
-  let leaveBtn = document.createElement("button");
-  leaveBtn.id = "leaveBtn";
-  leaveBtn.innerHTML = "Leave room";
-
   let listContent = document.createElement('ul');
   listContent.id = "listContent";
 
   savedRoomList.forEach(el => {
     let listOfRooms = document.createElement('li');
     listOfRooms.innerText = el;
-    sideContainer.append(listContent)
-    listContent.append(listOfRooms)
-  })
+
+  let leaveBtn = document.createElement("button");
+  leaveBtn.id = "leaveBtn";
+  leaveBtn.innerHTML = "Leave room";
 
   leaveBtn.addEventListener("click", () => {
     socket.emit("leave");
+    createRoom()
   });
+
+    listContent.append(listOfRooms);
+    aside.append(roomInputHeader, listContent, leaveBtn)
+    document.body.append(aside, rheader);
+  })
+}
+
+function renderMessageForm() {
+  document.body.innerHTML = "";
+  roomsList()
+
+  let mainContainer = document.createElement("main");
+  mainContainer.id = "mainContainer";
+
+  let rheader = document.createElement("div");
+  rheader.id = "rheader";
 
   let chatList = document.createElement("ul");
   chatList.id = "messages";
@@ -170,29 +149,18 @@ function renderMessageForm() {
       chatForm.reset();
     } else {
     }
-    // const rooms = room
-    //  socket.emit("join", rooms);
-  });
-
-  leaveBtn.addEventListener("click", () => {
-    // if (!user.length) {
-    //   socket.delete
-    // }
-    return renderRoomInput();
-    // socket.leave(room);
   });
 
   let sendButton = document.createElement("button");
   sendButton.id = "sendButton";
   sendButton.innerHTML = "Send";
 
-  sideContainer.prepend(roomContainer, leaveBtn);
   mainContainer.append(chatList, chatForm);
-  mainContent.append(sideContainer, rheader, mainContainer);
-  chatForm.append(chatInput, sendButton);
-  roomContainer.append(roomInputHeader);
-  document.body.append(mainContent);
+  chatForm.append(rheader, chatInput, sendButton);
+  document.body.append(mainContainer);
 }
+
+
 
 socket.on("connect_error", (err) => {
   if (err.message == "Invalid nickname") {
@@ -208,25 +176,22 @@ socket.on("roomList", (rooms) => {
  let aside = document.getElementById("sideContainer") as HTMLElement;
   let list = document.getElementById("roomList");
 
-  for (let i = 0; i < rooms.length; i++) {
-    const el = document.createElement("li");
-    el.innerHTML = `${rooms[i]}`;
-    el.addEventListener("click", () => {
-      socket.emit("join", rooms[i]);
-    });
+  // for (let i = 0; i < rooms.length; i++) {
+  //   const el = document.createElement("li");
+  //   el.innerHTML = `${rooms[i]}`;
+  //   el.addEventListener("click", () => {
+  //     socket.emit("join", rooms[i]);
+  //   });
+  //
+  //   if (list) {
+  //     list.append(el);
+  //     aside.append(list);
+  //   }
 
-    if (list) {
-      list.append(el);
-      aside.append(list);
-    }
+  // }
 
-  }
-  console.log(rooms);
   savedRoomList = rooms;
-
-    list.append(el);
-  }
-  aside.append(list);
+  console.log(rooms)
 });
 
 socket.on("joined", (room) => {
@@ -259,7 +224,7 @@ socket.on("connected", (nickname) => {
     usersList.append(listElement);
     listElement.textContent = nickname;
   }
-  renderRoomInput();
+  createRoom()
 });
 
 socket.on("disconnect", (nickname) => {
