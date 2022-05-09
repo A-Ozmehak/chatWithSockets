@@ -1,5 +1,6 @@
 import "./layout.css";
 
+//Function for the footer
 export default function layout() {
   let footer = document.createElement('footer');
   let creatorNames = document.createElement('p');
