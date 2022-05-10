@@ -26,6 +26,7 @@ export default (io: Server, socket: Socket) => {
   });
   socket.on("leave", () => {
     leaveRooms(socket);
+    socket.emit("left");
   });
 };
 

@@ -8,6 +8,7 @@ export function leaveButton(aside: HTMLElement, socket: IOSocket) {
   leaveBtn.addEventListener("click", () => {
     socket.emit("leave");
     // createRoom(socket);
+    console.log("HEEEE");
   });
   aside.append(leaveBtn);
 }

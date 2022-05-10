@@ -4,6 +4,7 @@ export interface ServerToClientEvents {
   roomList: (rooms: string[]) => void;
   joined: (room: string) => void;
   _error: (errorMessage: string) => void;
+  left: () => void;
 }
 
 export interface ClientToServerEvents {

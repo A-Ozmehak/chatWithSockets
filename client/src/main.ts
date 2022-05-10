@@ -1,13 +1,14 @@
 import "./style.css";
 import { io, Socket } from "socket.io-client";
 import { ServerToClientEvents, ClientToServerEvents } from "../../types";
-import { renderRoomsList } from "./renderRoomsList";
+import { renderRoomsList } from "./renderChatPage";
 import { renderStartPage } from "./renderStartPage";
 import { renderChatPage } from "./renderChatPage";
 import { renderMain } from "./renderChatPage";
 
 import "./room.css";
 import "./chat.css";
+import { createRoom } from "./createRoom";
 
 const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io({
   autoConnect: false,
@@ -25,30 +26,8 @@ function main() {
 }
 
 socket.on("roomList", (rooms) => {
-  // let aside = document.getElementById("sideContainer") as HTMLElement;
-  //  let list = document.getElementById("roomList");
-
-  // for (let i = 0; i < rooms.length; i++) {
-  //   const el = document.createElement("li");
-  //   el.innerHTML = `${rooms[i]}`;
-  //   el.addEventListener("click", () => {
-  //     socket.emit("join", rooms[i]);
-  //   });
-  //
-  //   if (list) {
-  //     list.append(el);
-  //     aside.append(list);
-  //   }
-
-  // }
-
   savedRoomList = rooms;
-  // TODO: RENDER!!!
-
-  // aside(socket);
-
-  renderRoomsList();
-
+  renderRoomsList(rooms, socket);
   console.log(rooms);
 });
 
@@ -102,4 +81,11 @@ socket.on("connected", (nickname, rooms) => {
 socket.on("disconnect", (nickname) => {
   console.log("user disconnected");
   console.log(nickname);
+});
+
+socket.on("left", () => {
+  console.log("left room");
+  joinedRoom = "";
+  // TODO: rendera om gränssnitt
+  //CREATE ROOM
 });
