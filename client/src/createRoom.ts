@@ -7,8 +7,12 @@ import { renderRoomsList } from "./renderRoomsList";
 let savedNick: string;
 
 export function createRoom(aside: HTMLElement, socket: IOSocket) {
+  let asideHeader = document.createElement("header");
+  asideHeader.id = "asideHeader";
+
   let welcomeMsg = document.createElement("p");
   welcomeMsg.innerText = `Welcome ${savedNick}`;
+  welcomeMsg.id = "welcomeMsg";
 
   let roomInput = document.createElement("input");
   roomInput.id = "roomName";
@@ -16,6 +20,13 @@ export function createRoom(aside: HTMLElement, socket: IOSocket) {
   let enterBtn = document.createElement("button");
   enterBtn.id = "enterBtn";
   enterBtn.innerHTML = "Create room";
+
+  let profile = document.createElement("div");
+  profile.id = "profile";
+
+  let profileName = document.createElement("p");
+  profileName.innerHTML = `${savedNick}`;
+  profileName.id = "profileName";
 
   let logOutBtn = document.createElement("button");
   logOutBtn.id = "logOutBtn";
@@ -39,5 +50,6 @@ export function createRoom(aside: HTMLElement, socket: IOSocket) {
     return renderStartPage(socket);
   });
 
-  aside.append(welcomeMsg, roomInput, enterBtn, logOutBtn);
+  aside.append(asideHeader, welcomeMsg, roomInput, enterBtn, profile);
+  profile.append(profileName, logOutBtn);
 }

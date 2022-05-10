@@ -7,8 +7,14 @@ import "../layout/layout.css";
 export function renderStartPage(socket: IOSocket) {
   document.body.innerHTML = "";
 
-  let header = document.createElement("div");
+  let startMainContainer = document.createElement("div");
+  startMainContainer.id = "startMainContainer";
+
+  let header = document.createElement("header");
   header.id = "header";
+
+  let startContainer = document.createElement("div");
+  startContainer.id = "startContainer";
 
   let container = document.createElement("div");
   container.id = "container";
@@ -16,8 +22,8 @@ export function renderStartPage(socket: IOSocket) {
   let inputContent = document.createElement("div");
   inputContent.id = "inputContent";
 
-  let nickNameInputHeader = document.createElement("h2");
-  nickNameInputHeader.innerHTML = "Enter your nickname";
+  let inputHeader = document.createElement("h2");
+  inputHeader.innerHTML = "Enter your nickname";
 
   let nickNameInput = document.createElement("input");
   nickNameInput.id = "nickNameInput";
@@ -31,8 +37,10 @@ export function renderStartPage(socket: IOSocket) {
     socket.connect();
   });
 
-  container.append(inputContent);
-  inputContent.append(nickNameInputHeader, nickNameInput, logInBtn);
-  document.body.append(header, container);
+  startMainContainer.append(header, startContainer);
+  startContainer.append(container);
+  container.append(inputContent, inputHeader, nickNameInput, logInBtn);
+  document.body.append(startMainContainer);
+
   footer(); // TODO rename to footer
 }
