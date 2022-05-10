@@ -2,17 +2,18 @@ import { IOSocket } from "./main";
 import { renderStartPage } from "./renderStartPage";
 import "./style.css";
 import { leaveButton } from "./leaveButton";
-import { renderRoomsList } from "./renderRoomsList";
+
 
 let savedNick: string;
 
 export function createRoom(aside: HTMLElement, socket: IOSocket) {
+
   let welcomeMsg = document.createElement("p");
   welcomeMsg.innerText = `Welcome ${savedNick}`;
 
+
   let roomInput = document.createElement("input");
   roomInput.id = "roomName";
-
   let enterBtn = document.createElement("button");
   enterBtn.id = "enterBtn";
   enterBtn.innerHTML = "Create room";
@@ -24,8 +25,12 @@ export function createRoom(aside: HTMLElement, socket: IOSocket) {
   enterBtn.addEventListener("click", () => {
     aside.innerHTML = "";
     const room = roomInput.value;
-    renderRoomsList();
     leaveButton(aside, socket);
+
+    //Prints out what room your in, doesn't work if you change room tho
+    let roomName = document.createElement('p');
+    roomName.innerHTML = `Your in room: ${roomInput.value}`;
+    aside.append(roomName)
 
     if (!room.length) {
       return;
@@ -39,5 +44,5 @@ export function createRoom(aside: HTMLElement, socket: IOSocket) {
     return renderStartPage(socket);
   });
 
-  aside.append(welcomeMsg, roomInput, enterBtn, logOutBtn);
+  aside.append(roomInput, enterBtn, logOutBtn, welcomeMsg);
 }

@@ -1,12 +1,10 @@
 import { IOSocket } from "./main";
-import { renderRoomsList } from "./renderRoomsList";
 import "./chat.css";
 
 let joinedRoom: string;
 
-export function renderMessageForm(main: HTMLElement, socket: IOSocket) {
-  renderRoomsList();
 
+export function renderMessageForm(main: HTMLElement, socket: IOSocket) {
   let chatList = document.createElement("ul");
   chatList.id = "messages";
 
