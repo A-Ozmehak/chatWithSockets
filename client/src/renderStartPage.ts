@@ -1,5 +1,5 @@
 import { IOSocket } from "./main";
-import layout from "../layout/layout";
+import footer from "../layout/footer";
 import "./style.css";
 import "./room.css";
 import "../layout/layout.css";
@@ -34,5 +34,5 @@ export function renderStartPage(socket: IOSocket) {
   container.append(inputContent);
   inputContent.append(nickNameInputHeader, nickNameInput, logInBtn);
   document.body.append(header, container);
-  layout(); // TODO rename to footer
+  footer(); // TODO rename to footer
 }

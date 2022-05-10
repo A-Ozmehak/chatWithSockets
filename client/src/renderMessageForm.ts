@@ -4,15 +4,8 @@ import "./chat.css";
 
 let joinedRoom: string;
 
-export function renderMessageForm(socket: IOSocket) {
-  document.body.innerHTML = "";
+export function renderMessageForm(main: HTMLElement, socket: IOSocket) {
   renderRoomsList();
-
-  let mainContainer = document.createElement("main");
-  mainContainer.id = "mainContainer";
-
-  let rheader = document.createElement("div");
-  rheader.id = "rheader";
 
   let chatList = document.createElement("ul");
   chatList.id = "messages";
@@ -36,7 +29,6 @@ export function renderMessageForm(socket: IOSocket) {
   sendButton.id = "sendButton";
   sendButton.innerHTML = "Send";
 
-  mainContainer.append(chatList, chatForm);
-  chatForm.append(rheader, chatInput, sendButton);
-  document.body.append(mainContainer);
+  main.append(chatList, chatForm);
+  chatForm.append(chatInput, sendButton);
 }

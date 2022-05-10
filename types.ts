@@ -1,6 +1,6 @@
 export interface ServerToClientEvents {
   message: (message: string, from: { id: string; nickname: string }) => void;
-  connected: (nickname: string) => void;
+  connected: (nickname: string, rooms: string[]) => void;
   roomList: (rooms: string[]) => void;
   joined: (room: string) => void;
   _error: (errorMessage: string) => void;
