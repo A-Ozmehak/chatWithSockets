@@ -2,11 +2,9 @@ import "./style.css";
 import { io, Socket } from "socket.io-client";
 import { ServerToClientEvents, ClientToServerEvents } from "../../types";
 import { renderRoomsList } from "./renderRoomsList";
-import { renderMessageForm } from "./renderMessageForm";
-import { createRoom } from "./createRoom";
 import { renderStartPage } from "./renderStartPage";
 import { renderChatPage } from "./renderChatPage";
-import { leaveButton } from "./leaveButton";
+import { renderMain } from "./renderChatPage";
 
 import "./room.css";
 import "./chat.css";
@@ -25,162 +23,6 @@ window.addEventListener("load", main);
 function main() {
   renderStartPage(socket);
 }
-
-//Renders the form for nickname
-// function renderNameInput() {
-//   document.body.innerHTML = "";
-
-//   let header = document.createElement("div");
-//   header.id = "header";
-
-//   let container = document.createElement("div");
-//   container.id = "container";
-
-//   let inputContent = document.createElement("div");
-//   inputContent.id = "inputContent";
-
-//   let nickNameInputHeader = document.createElement("h2");
-//   nickNameInputHeader.innerHTML = "Enter your nickname";
-
-//   let nickNameInput = document.createElement("input");
-//   nickNameInput.id = "nickNameInput";
-
-//   let logInBtn = document.createElement("button");
-//   logInBtn.id = "logInButton";
-//   logInBtn.innerHTML = "Continue";
-
-//   logInBtn.addEventListener("click", () => {
-//     savedNick = nickNameInput.value;
-
-//     socket.auth = { nickname: nickNameInput.value };
-//     socket.connect();
-//   });
-//   container.append(inputContent);
-//   inputContent.append(nickNameInputHeader, nickNameInput, logInBtn);
-//   document.body.append(header, container);
-// }
-
-//Renders the page where you create a room
-// export function createRoom(socket: IOSocket) {
-//   document.body.innerHTML = "";
-
-//   let createRoomContainer = document.createElement("aside");
-//   createRoomContainer.id = "sideContainer";
-
-//   let welcomeMsg = document.createElement("p");
-//   welcomeMsg.innerText = `Welcome ${savedNick}`;
-
-//   let roomInput = document.createElement("input");
-//   roomInput.id = "roomName";
-
-//   let enterBtn = document.createElement("button");
-//   enterBtn.id = "enterBtn";
-//   enterBtn.innerHTML = "Create room";
-
-//   let logOutBtn = document.createElement("button");
-//   logOutBtn.id = "logOutBtn";
-//   logOutBtn.innerHTML = "Logout";
-
-//   enterBtn.addEventListener("click", () => {
-//     const room = roomInput.value;
-
-//     if (!room.length) {
-//       return;
-//     }
-//     socket.emit("join", room);
-//   });
-
-//   logOutBtn.addEventListener("click", () => {
-//     //Delete users
-//     socket.disconnect();
-//     return renderNameInput();
-//   });
-//   createRoomContainer.append(welcomeMsg, roomInput, enterBtn, logOutBtn);
-//   document.body.append(createRoomContainer);
-// }
-//Renders the list with all the rooms
-// function renderRoomsList() {
-//   let aside = document.createElement("aside");
-//   aside.id = "sideContainer";
-
-//   let rheader = document.createElement("div");
-//   rheader.id = "rheader";
-
-//   let roomInputHeader = document.createElement("h2");
-//   roomInputHeader.innerHTML = "Rooms";
-
-//   let listContent = document.createElement("ul");
-//   listContent.id = "listContent";
-
-//   savedRoomList.forEach((el) => {
-//     let listOfRooms = document.createElement("li");
-//     listOfRooms.innerText = el;
-//     // listOfRooms.addEventListener
-//     listContent.append(listOfRooms);
-//   });
-
-//   // TODO: move away from renderRoomList
-//   let leaveBtn = document.createElement("button");
-//   leaveBtn.id = "leaveBtn";
-//   leaveBtn.innerHTML = "Leave room";
-
-//   leaveBtn.addEventListener("click", () => {
-//     socket.emit("leave");
-//     createRoom(socket);
-//   });
-
-//   aside.append(roomInputHeader, listContent, leaveBtn);
-//   document.body.append(aside, rheader);
-// }
-
-//Renders the chat page with a form and the chat boxes
-// function renderMessageForm() {
-//   document.body.innerHTML = "";
-//   renderRoomsList();
-
-//   let mainContainer = document.createElement("main");
-//   mainContainer.id = "mainContainer";
-
-//   let rheader = document.createElement("div");
-//   rheader.id = "rheader";
-
-//   let chatList = document.createElement("ul");
-//   chatList.id = "messages";
-
-//   let chatInput = document.createElement("input");
-//   chatInput.id = "chatInput";
-//   chatInput.autocomplete = "off";
-
-//   let chatForm = document.createElement("form");
-//   chatForm.id = "chatForm";
-//   chatForm.addEventListener("submit", (event) => {
-//     event.preventDefault();
-//     if (chatInput.value.length) {
-//       socket.emit("message", chatInput.value, joinedRoom);
-//       chatForm.reset();
-//     } else {
-//     }
-//   });
-
-//   let sendButton = document.createElement("button");
-//   sendButton.id = "sendButton";
-//   sendButton.innerHTML = "Send";
-
-//   mainContainer.append(chatList, chatForm);
-//   chatForm.append(rheader, chatInput, sendButton);
-//   document.body.append(mainContainer);
-// }
-
-// //Error if invalid nickname
-// socket.on("connect_error", (err) => {
-//   if (err.message == "Invalid nickname") {
-//     alert("Invalid nickname");
-//   }
-// });
-
-// socket.on("_error", (errorMessage) => {
-//   console.log(errorMessage);
-// });
 
 socket.on("roomList", (rooms) => {
   // let aside = document.getElementById("sideContainer") as HTMLElement;
@@ -225,9 +67,7 @@ socket.on("joined", (room) => {
 
   console.log(room);
 
-  renderRoomsList();
-  renderMessageForm(socket);
-  leaveButton(socket);
+  renderMain(socket);
 });
 
 //Prints out the nickname and the chatmessage
@@ -244,7 +84,7 @@ socket.on("message", (message, from) => {
   window.scrollTo(0, document.body.scrollHeight);
 });
 
-socket.on("connected", (nickname) => {
+socket.on("connected", (nickname, rooms) => {
   console.log(nickname);
   nickname = nickname;
 
@@ -255,7 +95,7 @@ socket.on("connected", (nickname) => {
   //   listElement.textContent = nickname;
   // }
 
-  renderChatPage(socket);
+  renderChatPage(socket, rooms);
 });
 
 //Shows when user disconnects in the console

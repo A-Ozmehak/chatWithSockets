@@ -1,7 +1,8 @@
 import { IOSocket } from "./main";
 import { renderStartPage } from "./renderStartPage";
-import { aside } from "../layout/aside";
 import "./style.css";
+import { leaveButton } from "./leaveButton";
+import { renderRoomsList } from "./renderRoomsList";
 
 let savedNick: string;
 
@@ -21,7 +22,10 @@ export function createRoom(aside: HTMLElement, socket: IOSocket) {
   logOutBtn.innerHTML = "Logout";
 
   enterBtn.addEventListener("click", () => {
+    aside.innerHTML = "";
     const room = roomInput.value;
+    renderRoomsList();
+    leaveButton(aside, socket);
 
     if (!room.length) {
       return;

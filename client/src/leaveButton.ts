@@ -1,7 +1,6 @@
 import { IOSocket } from "./main";
-import { createRoom } from "./createRoom";
 
-export function leaveButton(socket: IOSocket) {
+export function leaveButton(aside: HTMLElement, socket: IOSocket) {
   let leaveBtn = document.createElement("button");
   leaveBtn.id = "leaveBtn";
   leaveBtn.innerHTML = "Leave room";
@@ -10,5 +9,5 @@ export function leaveButton(socket: IOSocket) {
     socket.emit("leave");
     // createRoom(socket);
   });
-  document.body.append(leaveBtn);
+  aside.append(leaveBtn);
 }

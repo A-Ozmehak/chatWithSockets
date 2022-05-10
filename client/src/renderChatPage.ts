@@ -1,29 +1,30 @@
 import { createRoom } from "./createRoom";
 import { IOSocket } from "./main";
+import { renderMessageForm } from "./renderMessageForm";
 
-export function renderChatPage(socket: IOSocket) {
+let rooms: string[] = [];
+
+export function renderChatPage(socket: IOSocket, rooms: string[]) {
   document.body.innerHTML = "";
 
-  renderMain();
   renderHeader();
-  renderAside(socket);
+  renderAside(socket, rooms);
 }
 
-function renderAside(socket: IOSocket) {
+function renderAside(socket: IOSocket, rooms: string[]) {
   const aside = document.createElement("aside");
   aside.id = "aside";
   // TODO: styla aside mm...
   document.body.append(aside);
 
-  // renderHeader();
-  renderRoomsList(aside, []);
-  // renderButtonSegment();
   createRoom(aside, socket);
+  renderRoomsList(aside, rooms);
 }
 
-function renderMain() {
+export function renderMain(socket: IOSocket) {
   const main = document.createElement("main");
   main.id = "main";
+  renderMessageForm(main, socket);
   document.body.append(main);
 }
 
