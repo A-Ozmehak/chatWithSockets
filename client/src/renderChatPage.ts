@@ -1,3 +1,4 @@
+import { Socket } from "socket.io-client";
 import { createRoom } from "./createRoom";
 import { IOSocket } from "./main";
 import { renderMessageForm } from "./renderMessageForm";
@@ -18,7 +19,7 @@ function renderAside(socket: IOSocket, rooms: string[]) {
   document.body.append(aside);
 
   createRoom(aside, socket);
-  renderRoomsList(aside, rooms);
+  renderRoomsList(rooms, socket, aside);
 }
 
 export function renderMain(socket: IOSocket) {
@@ -34,17 +35,21 @@ function renderHeader() {
   document.body.append(header);
 }
 
-function renderRoomsList(aside: HTMLElement, rooms: string[]) {
+export function renderRoomsList(
+  rooms: string[],
+  socket: IOSocket,
+  aside?: HTMLElement
+) {
+  aside = aside || document.querySelector("aside")!;
   const ul = aside.querySelector("ul") || document.createElement("ul");
   ul.innerHTML = "";
-
-  // for each room
-  // const li = document.createElement('li');
-  // add li to ul
   rooms.forEach((room) => {
     let listItem = document.createElement("li");
     listItem.innerText = room;
-    // todo: listOfRooms.addEventListener
+    let i = 0;
+    listItem.addEventListener("click", () => {
+      socket.emit("join", rooms[i]);
+    });
     ul.append(listItem);
   });
 
