@@ -4,6 +4,15 @@ import "./style.css";
 import "./room.css";
 import "../layout/layout.css";
 
+let savedNick: string;
+
+
+export function welcomeMsg(aside: HTMLElement, nickNameInput: HTMLInputElement) {
+  let welcomeNickname = document.createElement('p');
+  welcomeNickname.innerText = `Welcome ${savedNick}`;
+  aside.append(welcomeNickname)
+}
+
 export function renderStartPage(socket: IOSocket) {
   document.body.innerHTML = "";
 
@@ -23,6 +32,10 @@ export function renderStartPage(socket: IOSocket) {
   nickNameInput.id = "nickNameInput";
 
   let logInBtn = document.createElement("button");
+
+  // welcomeMsg(aside, nickNameInput)
+
+  savedNick = nickNameInput.value;
   logInBtn.id = "logInButton";
   logInBtn.innerHTML = "Continue";
 

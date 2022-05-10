@@ -1,9 +1,8 @@
-import { Socket } from "socket.io-client";
 import { createRoom } from "./createRoom";
 import { IOSocket } from "./main";
 import { renderMessageForm } from "./renderMessageForm";
 
-let rooms: string[] = [];
+// let rooms: string[] = [];
 
 export function renderChatPage(socket: IOSocket, rooms: string[]) {
   document.body.innerHTML = "";
