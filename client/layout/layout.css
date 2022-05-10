@@ -1,4 +1,4 @@
-
+/* 
 #container {
   position: relative;
   top: 50%;
@@ -10,10 +10,9 @@
   width: 25rem;
   padding: 2rem;
   border-radius: 10px;
-}
+} */
 
 #namesFooter {
   display: flex;
   justify-content: center;
-
 }

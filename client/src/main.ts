@@ -23,8 +23,14 @@ window.addEventListener("load", () => {
 function renderNameInput() {
   document.body.innerHTML = "";
 
+  let startMainContainer = document.createElement("div");
+  startMainContainer.id = "startMainContainer";
+
   let header = document.createElement("header");
   header.id = "header";
+
+  let startContainer = document.createElement("div");
+  startContainer.id = "startContainer";
 
   let container = document.createElement("div");
   container.id = "container";
@@ -32,8 +38,8 @@ function renderNameInput() {
   let inputContent = document.createElement("div");
   inputContent.id = "inputContent";
 
-  let nickNameInputHeader = document.createElement("h2");
-  nickNameInputHeader.innerHTML = "Enter your nickname";
+  let inputHeader = document.createElement("h2");
+  inputHeader.innerHTML = "Enter your nickname";
 
   let nickNameInput = document.createElement("input");
   nickNameInput.id = "nickNameInput";
@@ -46,9 +52,10 @@ function renderNameInput() {
     socket.auth = { nickname: nickNameInput.value };
     socket.connect();
   });
-  container.append(inputContent);
-  inputContent.append(nickNameInputHeader, nickNameInput, logInBtn);
-  document.body.append(header, container);
+  startMainContainer.append(header, startContainer);
+  startContainer.append(container, inputContent);
+  container.append(inputContent, inputHeader, nickNameInput, logInBtn);
+  document.body.append(startMainContainer);
 }
 
 export function renderRoomInput() {
