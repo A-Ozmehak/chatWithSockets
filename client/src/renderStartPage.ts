@@ -4,14 +4,7 @@ import "./style.css";
 import "./room.css";
 import "../layout/layout.css";
 
-let savedNick: string;
-
-
-export function welcomeMsg(aside: HTMLElement, nickNameInput: HTMLInputElement) {
-  let welcomeNickname = document.createElement('p');
-  welcomeNickname.innerText = `Welcome ${savedNick}`;
-  aside.append(welcomeNickname)
-}
+export let savedNick: string;
 
 export function renderStartPage(socket: IOSocket) {
   document.body.innerHTML = "";
@@ -32,9 +25,6 @@ export function renderStartPage(socket: IOSocket) {
   nickNameInput.id = "nickNameInput";
 
   let logInBtn = document.createElement("button");
-
-  // welcomeMsg(aside, nickNameInput)
-
   savedNick = nickNameInput.value;
   logInBtn.id = "logInButton";
   logInBtn.innerHTML = "Continue";
@@ -42,6 +32,8 @@ export function renderStartPage(socket: IOSocket) {
   logInBtn.addEventListener("click", () => {
     socket.auth = { nickname: nickNameInput.value };
     socket.connect();
+    savedNick = nickNameInput.value;
+    console.log(savedNick)
   });
 
   container.append(inputContent);
