@@ -23,6 +23,7 @@ export default (io: Server, socket: Socket) => {
       id: socket.id,
       nickname: socket.data.nickname,
     });
+    console.log(message)
   });
   socket.on("leave", () => {
     leaveRooms(socket);
@@ -33,7 +34,7 @@ export default (io: Server, socket: Socket) => {
 const leaveRooms = (socket: Socket) => {
   socket.rooms.forEach((room) => {
     if (room !== socket.id) {
-      socket.leave(room);
+      socket.leave(room)
     }
   });
 };

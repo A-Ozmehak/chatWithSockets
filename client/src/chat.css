@@ -73,3 +73,11 @@
   background: #efefef;
   text-align: center;
 }
+
+
+#messages {
+  padding: 10rem;
+  position: absolute;
+  top: 5rem;
+  left: 15rem;
+}

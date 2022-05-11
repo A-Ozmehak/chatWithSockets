@@ -35,17 +35,16 @@ socket.on("joined", (room) => {
   console.log("Joined Room", room);
   joinedRoom = room;
 
-  renderMain(socket);
+  renderMain(socket, room)
 });
 
 //Prints out the nickname and the chatmessage
 socket.on("message", (message, from) => {
+ let messageList = document.getElementById("messages");
   const chatItem = document.createElement("li");
   chatItem.id = "chatItem";
   chatItem.textContent = from.nickname + ": " + message;
-  console.log("hejsan");
-
-  const messageList = document.getElementById("messages");
+ 
   if (messageList) {
     messageList.append(chatItem);
   }
@@ -62,8 +61,9 @@ socket.on("connected", (nickname, rooms) => {
   //   usersList.append(listElement);
   //   listElement.textContent = nickname;
   // }
-
   renderChatPage(socket, rooms);
+
+  
 });
 
 //Shows when user disconnects in the console
@@ -72,9 +72,10 @@ socket.on("disconnect", (nickname) => {
   console.log(nickname);
 });
 
-socket.on("left", () => {
+socket.on("left", (rooms) => {
   console.log("left room");
   joinedRoom = "";
   // TODO: rendera om gränssnitt
   //  createRoom(aside, socket)
+  renderChatPage(socket, rooms)
 });
