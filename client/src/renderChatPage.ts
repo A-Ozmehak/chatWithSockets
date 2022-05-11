@@ -5,7 +5,7 @@ import { renderMessageForm } from "./renderMessageForm";
 export function renderChatPage(socket: IOSocket, rooms: string[]) {
   document.body.innerHTML = "";
 
-  renderHeader();
+  // renderHeader();
   renderAside(socket, rooms);
 }
 
@@ -28,7 +28,7 @@ export function renderMain(socket: IOSocket) {
 
 function renderHeader() {
   const header = document.createElement("header");
-  header.id = "rheader";
+  header.id = "asideHeader";
   document.body.append(header);
 }
 
