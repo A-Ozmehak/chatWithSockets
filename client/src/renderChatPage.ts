@@ -22,6 +22,7 @@ function renderAside(socket: IOSocket, rooms: string[]) {
 export function renderMain(socket: IOSocket) {
   const main = document.createElement("main");
   main.id = "main";
+
   renderMessageForm(main, socket);
   document.body.append(main);
 }

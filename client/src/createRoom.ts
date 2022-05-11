@@ -5,7 +5,6 @@ import { leaveButton } from "./leaveButton";
 import { savedNick } from "./renderStartPage";
 
 export function createRoom(aside: HTMLElement, socket: IOSocket) {
-
   let welcomeMsg = document.createElement("p");
   welcomeMsg.innerText = `Welcome ${savedNick}`;
 
