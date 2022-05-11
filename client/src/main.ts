@@ -5,10 +5,10 @@ import { renderRoomsList } from "./renderChatPage";
 import { renderStartPage } from "./renderStartPage";
 import { renderChatPage } from "./renderChatPage";
 import { renderMain } from "./renderChatPage";
-
 import "./room.css";
 import "./chat.css";
 import { createRoom } from "./createRoom";
+import { aside } from "../layout/aside";
 
 const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io({
   autoConnect: false,
@@ -87,5 +87,5 @@ socket.on("left", () => {
   console.log("left room");
   joinedRoom = "";
   // TODO: rendera om gränssnitt
-  //CREATE ROOM
+  // createRoom(aside, socket)
 });

@@ -4,6 +4,8 @@ import "./style.css";
 import "./room.css";
 import "../layout/layout.css";
 
+export let savedNick: string;
+
 export function renderStartPage(socket: IOSocket) {
   document.body.innerHTML = "";
 
@@ -29,12 +31,15 @@ export function renderStartPage(socket: IOSocket) {
   nickNameInput.id = "nickNameInput";
 
   let logInBtn = document.createElement("button");
+  savedNick = nickNameInput.value;
   logInBtn.id = "logInButton";
   logInBtn.innerHTML = "Continue";
 
   logInBtn.addEventListener("click", () => {
     socket.auth = { nickname: nickNameInput.value };
     socket.connect();
+    savedNick = nickNameInput.value;
+    console.log(savedNick)
   });
 
   startMainContainer.append(header, startContainer);
