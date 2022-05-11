@@ -7,6 +7,8 @@ import { renderChatPage } from "./renderChatPage";
 import { renderMain } from "./renderChatPage";
 import "./room.css";
 import "./chat.css";
+import { createRoom } from "./createRoom";
+import { aside } from "../layout/aside";
 
 const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io({
   autoConnect: false,

@@ -2,15 +2,12 @@ import { IOSocket } from "./main";
 import { renderStartPage } from "./renderStartPage";
 import "./style.css";
 import { leaveButton } from "./leaveButton";
-
-
-let savedNick: string;
+import { savedNick } from "./renderStartPage";
 
 export function createRoom(aside: HTMLElement, socket: IOSocket) {
 
   let welcomeMsg = document.createElement("p");
   welcomeMsg.innerText = `Welcome ${savedNick}`;
-
 
   let roomInput = document.createElement("input");
   roomInput.id = "roomName";
