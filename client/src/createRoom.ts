@@ -35,9 +35,9 @@ export function createRoom(aside: HTMLElement, socket: IOSocket) {
     leaveButton(aside, socket);
 
     //Prints out what room your in, doesn't work if you change room tho
-    let roomName = document.createElement('p');
+    let roomName = document.createElement("p");
     roomName.innerHTML = `Your in room: ${roomInput.value}`;
-    aside.append(roomName)
+    aside.append(roomName);
 
     if (!room.length) {
       return;
@@ -51,8 +51,7 @@ export function createRoom(aside: HTMLElement, socket: IOSocket) {
     return renderStartPage(socket);
   });
 
-
   aside.append(asideHeader, welcomeMsg, roomInput, enterBtn, profile);
   profile.append(profileName, logOutBtn);
-  aside.append(roomInput, enterBtn, logOutBtn, welcomeMsg);
+  // aside.append(roomInput, enterBtn, logOutBtn, welcomeMsg);
 }
