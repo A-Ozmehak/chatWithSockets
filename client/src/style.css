@@ -3,12 +3,28 @@ body {
   background-repeat: no-repeat;
   background-position: center center;
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
   background-image: url("./assets/backgroundHoriz.jpg");
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
     Arial, sans-serif;
 }
+#aside {
+  width: 15rem;
+  background-color: rgb(216, 27, 109);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+#welcomeMsg {
+  margin: 1rem;
+  border-bottom: #333 solid 1px;
+  justify-content: center;
+  text-align: center;
+}
+
 #createRoomContainer {
   display: flex;
   flex-direction: column;
@@ -22,27 +38,37 @@ body {
   width: auto;
   margin-top: 4rem;
 }
+#startContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 #container {
-  width: 100%;
+  /* width: 100%; */
   margin-top: 4rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  width: 20rem;
+  padding: 3rem;
+  border-radius: 10px;
 }
 
 #inputContent {
-  height: 15rem;
+  height: auto;
   width: auto;
-  margin-top: 5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: rgba(255, 255, 255, 0.8);
   border-radius: 1rem;
-  padding: 2rem 4rem;
+  /* padding: 2rem; */
+  /* padding-right: 4rem;
+  padding-left: 4rem; */
 }
 
 #nickNameInput {
