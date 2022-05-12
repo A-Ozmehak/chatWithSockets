@@ -58,6 +58,7 @@ export function renderRoomsList(
     let listItem = document.createElement("li");
     listItem.innerText = `${rooms[i]}`;
     listItem.addEventListener("click", () => {
+      renderChatPage(socket, rooms);
       socket.emit("join", rooms[i]);
     });
     // rooms.forEach((room) => {
