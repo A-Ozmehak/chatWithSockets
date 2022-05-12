@@ -19,14 +19,14 @@ export default (io: Server, socket: Socket) => {
     if (!socket.data.nickname) {
       return socket.emit("_error", "Missing nickname on socket...");
     }
-    // io.to(to).emit(
-    //   "typing",
-    //   {
-    //     id: socket.id,
-    //     nickname: socket.data.nickname,
-    //   },
-    //   false
-    // );
+    io.to(to).emit(
+      "typing",
+      {
+        id: socket.id,
+        nickname: socket.data.nickname,
+      },
+      false
+    );
     io.to(to).emit("message", message, {
       id: socket.id,
       nickname: socket.data.nickname,

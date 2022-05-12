@@ -37,7 +37,7 @@ export function renderTypingMessage(
     typingParagraph = document.createElement("p");
     typingParagraph.id = "typing";
   }
-  //typingParagraph.innerHTML = typingMessage;
+  // typingParagraph.innerHTML = typingMessage;
   if (typingParagraph.innerHTML === "" && socket.id != id) {
     console.log(typingMessage);
     const form = document.getElementById("chatForm");
