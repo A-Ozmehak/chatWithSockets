@@ -30,7 +30,7 @@
   padding: 0.25rem;
   position: fixed;
   bottom: 0;
-  left: 0;
+  left: 15rem;
   right: 0;
   display: flex;
   height: 3rem;
@@ -74,10 +74,12 @@
   text-align: center;
 }
 
-
 #messages {
   padding: 10rem;
-  position: absolute;
   top: 5rem;
   left: 15rem;
+}
+#main {
+  margin-left: 15rem;
+  position: relative;
 }

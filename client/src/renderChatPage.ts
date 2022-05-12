@@ -25,6 +25,7 @@ export function renderMain(socket: IOSocket, room: string) {
 
   renderMessageForm(main, socket, room);
   document.body.append(main);
+
 }
 
 export function renderTypingMessage(
@@ -44,6 +45,7 @@ export function renderTypingMessage(
     typingParagraph.innerHTML = typingMessage;
     form?.append(typingParagraph);
   }
+
 }
 
 export function renderRoomsList(
