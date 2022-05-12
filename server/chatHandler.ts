@@ -7,13 +7,12 @@ export default (io: IOServer, socket: IOSocket) => {
 
     const broadcastRooms: boolean = !getRooms(io).includes(room);
     socket.join(room);
+    socket.emit("joined", room);
 
     // Skicka ut rumslista endast när ett nytt rum skapats
     if (broadcastRooms) {
       io.emit("roomList", getRooms(io));
     }
-
-    socket.emit("joined", room);
   });
   socket.on("message", (message, to) => {
     if (!socket.data.nickname) {
@@ -36,6 +35,7 @@ export default (io: IOServer, socket: IOSocket) => {
   socket.on("leave", () => {
     leaveRooms(socket);
     socket.emit("left", getRooms(io));
+    io.emit("roomList", getRooms(io));
   });
   socket.on("typing", (user, to, isTyping) => {
     if (!socket.data.nickname) {

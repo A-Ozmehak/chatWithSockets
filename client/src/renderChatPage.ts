@@ -63,6 +63,7 @@ export function renderRoomsList(
     });
 
     ul.append(listItem);
+    console.log("roomlist", rooms);
     aside.append(ul);
   }
 }
