@@ -1,19 +1,24 @@
 import { IOSocket } from "./main";
 import "./chat.css";
-import { string } from "yup";
 
 let joinedRoom: string;
 
-
-export function renderMessageForm(main: HTMLElement, socket: IOSocket, room: string) {
+export function renderMessageForm(
+  main: HTMLElement,
+  socket: IOSocket,
+  room: string
+) {
   let chatList = document.createElement("ul");
   chatList.id = "messages";
- 
 
   let chatInput = document.createElement("input");
   chatInput.id = "chatInput";
   chatInput.autocomplete = "off";
-   
+  chatInput.addEventListener("keyup", (event) => {
+    console.log(chatInput.value);
+    const isTyping = chatInput.value == "" ? false : true;
+    socket.emit("typing", socket.id, room, isTyping);
+  });
 
   let chatForm = document.createElement("form");
   chatForm.id = "chatForm";
@@ -23,10 +28,8 @@ export function renderMessageForm(main: HTMLElement, socket: IOSocket, room: str
       socket.emit("message", chatInput.value, room);
       console.log(chatInput.value);
       chatForm.reset();
-    
     } else {
       console.log("cant send empty messages");
-      
     }
   });
 
