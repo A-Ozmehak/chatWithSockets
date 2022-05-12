@@ -12,6 +12,7 @@
   width: 12rem;
   margin-top: 1rem;
   margin-bottom: 0.1rem;
+  margin-left: 0.5rem;
   padding: 0 1rem;
 }
 
@@ -21,7 +22,7 @@
   width: 8rem;
   background: #333;
   padding: 0 1rem;
-  margin: 1rem 0.25rem;
+  margin: 0.7rem;
   border-radius: 3px;
   outline: none;
   color: #fff;
@@ -42,6 +43,9 @@
   width: 100%;
 }
 
+#profileName {
+  padding-left: 0.5rem;
+}
 #logOutBtn {
   height: 2rem;
   width: 4rem;
@@ -57,4 +61,26 @@
 #logOutBtn:hover {
   box-shadow: 0 1rem 1.5rem 0 rgba(0, 0, 0, 0.24),
     0 1.5rem 5rem 0 rgba(0, 0, 0, 0.19);
+}
+
+#roomList {
+  list-style-type: none;
+  border: 1px #333 solid;
+  border-radius: 1rem;
+  background-color: black;
+  color: white;
+  margin-top: 1rem;
+  cursor: pointer;
+  text-align: center;
+  background: #333;
+}
+
+#roomList:hover {
+  background-color: white;
+  color: black;
+}
+
+ul {
+  padding: 0;
+  margin: 0.5rem;
 }

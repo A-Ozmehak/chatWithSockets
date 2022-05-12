@@ -7,14 +7,13 @@ export function renderChatPage(socket: IOSocket, rooms: string[]) {
   document.body.innerHTML = "";
 
   renderAside(socket, rooms);
-  // renderMain(socket);
 }
 
 function renderAside(socket: IOSocket, rooms: string[]) {
   const aside = document.createElement("aside");
   aside.id = "aside";
-  document.body.append(aside);
 
+  document.body.append(aside);
   createRoom(aside, socket);
   renderRoomsList(rooms, socket, aside);
 }
@@ -25,7 +24,6 @@ export function renderMain(socket: IOSocket, room: string) {
 
   renderMessageForm(main, socket, room);
   document.body.append(main);
-
 }
 
 export function renderTypingMessage(
@@ -45,7 +43,6 @@ export function renderTypingMessage(
     typingParagraph.innerHTML = typingMessage;
     form?.append(typingParagraph);
   }
-
 }
 
 export function renderRoomsList(
@@ -58,21 +55,14 @@ export function renderRoomsList(
   ul.innerHTML = "";
   for (let i = 0; i < rooms.length; i++) {
     let listItem = document.createElement("li");
+    listItem.id = "roomList";
     listItem.innerText = `${rooms[i]}`;
     listItem.addEventListener("click", () => {
       renderChatPage(socket, rooms);
       socket.emit("join", rooms[i]);
     });
-    // rooms.forEach((room) => {
-    //   let i = 1;
-    //   let listItem = document.createElement("li");
-    //   listItem.innerText = room;
-    //   listItem.addEventListener("click", () => {
-    //     socket.emit("join", rooms[i]);
-    //   });
-    ul.append(listItem);
-    // });
 
+    ul.append(listItem);
     aside.append(ul);
   }
 }

@@ -27,6 +27,7 @@ body {
   border-bottom: #333 solid 1px;
   justify-content: center;
   text-align: center;
+  font-weight: 500;
 }
 
 #createRoomContainer {
