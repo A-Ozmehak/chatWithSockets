@@ -41,7 +41,7 @@ socket.on("joined", (room) => {
 
   //Prints out what room your in, doesn't work if you change room tho
   let roomName = document.createElement("p");
-  roomName.innerHTML = `You're in room: ${room}`;
+  roomName.innerHTML = "You're in room:" + "<br />" + `${room}`;
   aside.append(roomName);
 
   renderMain(socket, room);
@@ -64,13 +64,6 @@ socket.on("message", (message, from) => {
 socket.on("connected", (nickname, rooms) => {
   console.log(nickname);
   nickname = nickname;
-
-  // const usersList = document.getElementById("usersList");
-  // if (usersList) {
-  //   const listElement = document.createElement("li");
-  //   usersList.append(listElement);
-  //   listElement.textContent = nickname;
-  // }
   renderChatPage(socket, rooms);
 });
 
@@ -83,8 +76,6 @@ socket.on("disconnect", (nickname) => {
 socket.on("left", (rooms) => {
   console.log("left room");
   joinedRoom = "";
-  // TODO: rendera om gränssnitt
-  //  createRoom(aside, socket)
   renderChatPage(socket, rooms);
 });
 
