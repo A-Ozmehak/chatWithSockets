@@ -1,7 +1,7 @@
-import { Server, Socket } from "socket.io";
 import { getRooms } from "./rooms";
+import type { IOServer, IOSocket } from "./server";
 
-export default (io: Server, socket: Socket) => {
+export default (io: IOServer, socket: IOSocket) => {
   socket.on("join", (room) => {
     leaveRooms(socket);
 
@@ -19,22 +19,43 @@ export default (io: Server, socket: Socket) => {
     if (!socket.data.nickname) {
       return socket.emit("_error", "Missing nickname on socket...");
     }
+    io.to(to).emit(
+      "typing",
+      {
+        id: socket.id,
+        nickname: socket.data.nickname,
+      },
+      false
+    );
     io.to(to).emit("message", message, {
       id: socket.id,
       nickname: socket.data.nickname,
     });
-    console.log(message)
+    console.log(message);
   });
   socket.on("leave", () => {
     leaveRooms(socket);
-    socket.emit("left");
+    socket.emit("left", getRooms(io));
+  });
+  socket.on("typing", (user, to, isTyping) => {
+    if (!socket.data.nickname) {
+      return socket.emit("_error", "Missing nickname on socket...");
+    }
+    io.to(to).emit(
+      "typing",
+      {
+        id: socket.id,
+        nickname: socket.data.nickname,
+      },
+      isTyping
+    );
   });
 };
 
-const leaveRooms = (socket: Socket) => {
+const leaveRooms = (socket: IOSocket) => {
   socket.rooms.forEach((room) => {
     if (room !== socket.id) {
-      socket.leave(room)
+      socket.leave(room);
     }
   });
 };
