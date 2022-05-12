@@ -1,9 +1,8 @@
 import { IOSocket } from "./main";
 import "./chat.css";
-import { string } from "yup";
+import {savedNick} from "./renderStartPage";
 
 let joinedRoom: string;
-
 
 export function renderMessageForm(main: HTMLElement, socket: IOSocket, room: string) {
   let chatList = document.createElement("ul");
@@ -13,7 +12,10 @@ export function renderMessageForm(main: HTMLElement, socket: IOSocket, room: str
   let chatInput = document.createElement("input");
   chatInput.id = "chatInput";
   chatInput.autocomplete = "off";
-   
+  chatInput.addEventListener("input", () => {
+
+    socket.emit("typing", savedNick, chatInput.value);
+  })
 
   let chatForm = document.createElement("form");
   chatForm.id = "chatForm";

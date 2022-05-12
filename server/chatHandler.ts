@@ -25,6 +25,11 @@ export default (io: Server, socket: Socket) => {
     });
     console.log(message)
   });
+
+  socket.on("typing", (savedNick, chatInput) => {
+    io.emit("typing", savedNick, chatInput)
+  })
+
   socket.on("leave", () => {
     leaveRooms(socket);
     socket.emit("left");

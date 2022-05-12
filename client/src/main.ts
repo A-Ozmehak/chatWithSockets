@@ -2,7 +2,7 @@ import "./style.css";
 import { io, Socket } from "socket.io-client";
 import { ServerToClientEvents, ClientToServerEvents } from "../../types";
 import { renderRoomsList } from "./renderChatPage";
-import { renderStartPage } from "./renderStartPage";
+import { renderStartPage, savedNick } from "./renderStartPage";
 import { renderChatPage } from "./renderChatPage";
 import { renderMain } from "./renderChatPage";
 import "./room.css";
@@ -35,7 +35,7 @@ socket.on("joined", (room) => {
   console.log("Joined Room", room);
   joinedRoom = room;
 
-  renderMain(socket, room)
+  renderMain(socket, room);
 });
 
 //Prints out the nickname and the chatmessage
@@ -51,19 +51,23 @@ socket.on("message", (message, from) => {
   window.scrollTo(0, document.body.scrollHeight);
 });
 
+
+socket.on("typing", (savedNick: any, chatInput: string | any[]) => {
+    let typingCheck = document.getElementById("userIsTyping");
+    if (chatInput.length > 1) {
+        typingCheck!.textContent = `${savedNick} is typing a message`;
+    }
+    if (chatInput.length < 1) {
+        typingCheck!.textContent = `noone is typing`;
+    }
+    }
+)
+
 socket.on("connected", (nickname, rooms) => {
   console.log(nickname);
   nickname = nickname;
 
-  // const usersList = document.getElementById("usersList");
-  // if (usersList) {
-  //   const listElement = document.createElement("li");
-  //   usersList.append(listElement);
-  //   listElement.textContent = nickname;
-  // }
   renderChatPage(socket, rooms);
-
-  
 });
 
 //Shows when user disconnects in the console
@@ -75,7 +79,5 @@ socket.on("disconnect", (nickname) => {
 socket.on("left", (rooms) => {
   console.log("left room");
   joinedRoom = "";
-  // TODO: rendera om gränssnitt
-  //  createRoom(aside, socket)
   renderChatPage(socket, rooms)
 });
