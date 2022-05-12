@@ -1,7 +1,7 @@
-import { Server, Socket } from "socket.io";
 import { getRooms } from "./rooms";
+import type { IOServer, IOSocket } from "./server";
 
-export default (io: Server, socket: Socket) => {
+export default (io: IOServer, socket: IOSocket) => {
   socket.on("join", (room) => {
     leaveRooms(socket);
 
@@ -35,7 +35,7 @@ export default (io: Server, socket: Socket) => {
   });
   socket.on("leave", () => {
     leaveRooms(socket);
-    socket.emit("left");
+    socket.emit("left", getRooms(io));
   });
   socket.on("typing", (user, to, isTyping) => {
     if (!socket.data.nickname) {
@@ -52,7 +52,7 @@ export default (io: Server, socket: Socket) => {
   });
 };
 
-const leaveRooms = (socket: Socket) => {
+const leaveRooms = (socket: IOSocket) => {
   socket.rooms.forEach((room) => {
     if (room !== socket.id) {
       socket.leave(room);

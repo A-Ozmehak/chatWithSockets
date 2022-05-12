@@ -7,6 +7,7 @@ import { renderChatPage } from "./renderChatPage";
 import { renderMain, renderTypingMessage } from "./renderChatPage";
 import "./room.css";
 import "./chat.css";
+import { leaveButton } from "./leaveButton";
 
 const socket: Socket<ServerToClientEvents, ClientToServerEvents> = io({
   autoConnect: false,
@@ -31,11 +32,20 @@ socket.on("roomList", (rooms) => {
 
 //Renders the form for the chat when the user has joined a room
 socket.on("joined", (room) => {
-  alert("you have joined room: " + room);
   console.log("Joined Room", room);
   joinedRoom = room;
+  const aside = document.querySelector("aside")!;
+
+  aside.innerHTML = "";
+  leaveButton(aside, socket);
+
+  //Prints out what room your in, doesn't work if you change room tho
+  let roomName = document.createElement("p");
+  roomName.innerHTML = `You're in room: ${room}`;
+  aside.append(roomName);
 
   renderMain(socket, room);
+  // renderRoomsList(socket, aside)
 });
 
 //Prints out the nickname and the chatmessage
