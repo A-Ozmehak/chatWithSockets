@@ -15,7 +15,10 @@ const io = new Server<
   ServerSocketData
 >();
 
-io.use((socket: Socket, next) => {
+export type IOServer = typeof io;
+export type IOSocket = Socket<ClientToServerEvents, ServerToClientEvents>;
+
+io.use((socket, next) => {
   const nickname: string = socket.handshake.auth.nickname;
   if (!nickname || nickname.length < 3) {
     return next(new Error("Invalid nickname"));

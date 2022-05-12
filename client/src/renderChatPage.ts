@@ -1,7 +1,7 @@
 import { createRoom } from "./createRoom";
 import { IOSocket } from "./main";
 import { renderMessageForm } from "./renderMessageForm";
-import "./chat.css"
+import "./chat.css";
 
 export function renderChatPage(socket: IOSocket, rooms: string[]) {
   document.body.innerHTML = "";
@@ -25,7 +25,25 @@ export function renderMain(socket: IOSocket, room: string) {
 
   renderMessageForm(main, socket, room);
   document.body.append(main);
-  
+}
+
+export function renderTypingMessage(
+  socket: IOSocket,
+  typingMessage: string,
+  id: string
+) {
+  let typingParagraph = document.getElementById("typing");
+  if (typingParagraph === null) {
+    typingParagraph = document.createElement("p");
+    typingParagraph.id = "typing";
+  }
+  // typingParagraph.innerHTML = typingMessage;
+  if (socket.id != id) {
+    console.log(typingMessage);
+    const form = document.getElementById("chatForm");
+    typingParagraph.innerHTML = typingMessage;
+    form?.append(typingParagraph);
+  }
 }
 
 export function renderRoomsList(
@@ -40,18 +58,19 @@ export function renderRoomsList(
     let listItem = document.createElement("li");
     listItem.innerText = `${rooms[i]}`;
     listItem.addEventListener("click", () => {
+      renderChatPage(socket, rooms);
       socket.emit("join", rooms[i]);
-
     });
-  // rooms.forEach((room) => {
-  //   let i = 1;
-  //   let listItem = document.createElement("li");
-  //   listItem.innerText = room;
-  //   listItem.addEventListener("click", () => {
-  //     socket.emit("join", rooms[i]);
-  //   });
+    // rooms.forEach((room) => {
+    //   let i = 1;
+    //   let listItem = document.createElement("li");
+    //   listItem.innerText = room;
+    //   listItem.addEventListener("click", () => {
+    //     socket.emit("join", rooms[i]);
+    //   });
     ul.append(listItem);
-  // });
+    // });
 
-  aside.append(ul);
-}}
+    aside.append(ul);
+  }
+}
