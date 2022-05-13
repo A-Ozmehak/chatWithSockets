@@ -39,7 +39,6 @@ export function renderStartPage(socket: IOSocket) {
     socket.auth = { nickname: nickNameInput.value };
     socket.connect();
     savedNick = nickNameInput.value;
-    console.log(savedNick)
   });
 
   startMainContainer.append(header, startContainer);
@@ -47,5 +46,5 @@ export function renderStartPage(socket: IOSocket) {
   container.append(inputContent, inputHeader, nickNameInput, logInBtn);
   document.body.append(startMainContainer);
 
-  footer(); // TODO rename to footer
+  footer();
 }

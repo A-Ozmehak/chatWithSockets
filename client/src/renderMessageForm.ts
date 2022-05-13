@@ -15,7 +15,6 @@ export function renderMessageForm(
   chatInput.id = "chatInput";
   chatInput.autocomplete = "off";
   chatInput.addEventListener("keyup", (event) => {
-    console.log(chatInput.value);
     const isTyping = chatInput.value == "" ? false : true;
     socket.emit("typing", socket.id, room, isTyping);
   });
@@ -26,10 +25,7 @@ export function renderMessageForm(
     event.preventDefault();
     if (chatInput.value.length) {
       socket.emit("message", chatInput.value, room);
-      console.log(chatInput.value);
       chatForm.reset();
-    } else {
-      console.log("cant send empty messages");
     }
   });
 

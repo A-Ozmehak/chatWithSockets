@@ -27,16 +27,12 @@ function main() {
 socket.on("roomList", (rooms) => {
   savedRoomList = rooms;
   renderRoomsList(rooms, socket);
-  console.log(rooms);
 });
 
 //Renders the form for the chat when the user has joined a room
 socket.on("joined", (room) => {
-  console.log("Joined Room", room);
   joinedRoom = room;
   const aside = document.querySelector("aside")!;
-
-  // aside.innerHTML = "";
   leaveButton(aside, socket);
 
   //Prints out what room your in, doesn't work if you change room tho
@@ -44,26 +40,9 @@ socket.on("joined", (room) => {
   currentRoom.innerHTML = "Currently in: " + `${room}`;
   currentRoom.id = "currentRoom";
   aside.append(currentRoom);
-  // const rooms = savedRoomList.slice();
-  // const ul = aside.querySelector("ul") || document.createElement("ul");
-  // ul.innerHTML = "";
-  // for (let i = 0; i < rooms.length; i++) {
-  //   let listItem = document.createElement("li");
-  //   listItem.id = "roomList";
-  //   listItem.innerText = `${rooms[i]}`;
-  //   listItem.addEventListener("click", () => {
-  //     renderChatPage(socket, rooms);
-  //     socket.emit("join", rooms[i]);
-  //   });
-
-  //   ul.append(listItem);
-  //   console.log("roomlist", rooms);
-  //   aside.append(ul);
-  // }
 
   renderMain(socket, room);
   joinRoom();
-  // renderRoomsList(socket, aside)
 });
 
 //Prints out the nickname and the chatmessage
@@ -80,19 +59,14 @@ socket.on("message", (message, from) => {
 });
 
 socket.on("connected", (nickname, rooms) => {
-  console.log(nickname);
   nickname = nickname;
   renderChatPage(socket, rooms);
 });
 
 //Shows when user disconnects in the console
-socket.on("disconnect", (nickname) => {
-  console.log("user disconnected");
-  console.log(nickname);
-});
+socket.on("disconnect", (nickname) => {});
 
 socket.on("left", (rooms) => {
-  console.log("left room");
   joinedRoom = "";
   renderChatPage(socket, rooms);
 });
@@ -102,6 +76,5 @@ socket.on("typing", (user, isTyping) => {
   if (isTyping === false) {
     typingMessage = "";
   }
-  console.log(isTyping);
   renderTypingMessage(socket, typingMessage, user.id);
 });
