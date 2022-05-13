@@ -67,3 +67,11 @@ export function renderRoomsList(
     aside.append(ul);
   }
 }
+
+export function joinRoom() {
+  let roomInput = document.getElementById("roomName") as HTMLElement;
+  roomInput.style.display = "none";
+
+  let createRoomBtn = document.getElementById("enterBtn") as HTMLElement;
+  createRoomBtn.style.display = "none";
+}
