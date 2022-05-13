@@ -42,7 +42,6 @@ export function renderTypingMessage(
   }
   // typingParagraph.innerHTML = typingMessage;
   if (socket.id != id) {
-    console.log(typingMessage);
     const form = document.getElementById("chatForm");
     typingParagraph.innerHTML = typingMessage;
     form?.append(typingParagraph);
@@ -67,7 +66,6 @@ export function renderRoomsList(
     });
 
     ul.append(listItem);
-    console.log("roomlist", rooms);
     aside.append(ul);
   }
 }

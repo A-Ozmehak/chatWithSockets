@@ -1,5 +1,6 @@
 # ChatApp with Typescript and Socket.io
 
+We created a chat app where the user can create and join different rooms.
 
 ## Install & Run
 
@@ -28,11 +29,11 @@ Run the follow command to remove all three node_modules folders
 
 - `npm run rm-node-modules`.
 
-
 #### Creaters
+
 [Ella Larsson](https://github.com/EllaMiri)  
 [Elin Arntén](https://github.com/elinarnten)  
 [Jannie Bäckman Kuurne](https://github.com/Jannie87)  
-[Anna Özmehak](https://github.com/A-Ozmehak)  
+[Anna Özmehak](https://github.com/A-Ozmehak)
 
 [Repo](https://github.com/A-Ozmehak/chatWithSockets)

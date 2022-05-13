@@ -28,8 +28,6 @@ io.use((socket, next) => {
 });
 
 io.on("connection", (socket) => {
-  console.log("a user connected");
-
   if (socket.data.nickname) {
     socket.emit("connected", socket.data.nickname, getRooms(io));
   }
