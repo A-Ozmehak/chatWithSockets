@@ -5,8 +5,8 @@ import { leaveButton } from "./leaveButton";
 import { savedNick } from "./renderStartPage";
 
 export function createRoom(aside: HTMLElement, socket: IOSocket) {
-  let asideHeader = document.createElement("header");
-  asideHeader.id = "asideHeader";
+  // let asideHeader = document.createElement("header");
+  // asideHeader.id = "asideHeader";
 
   let welcomeMsg = document.createElement("p");
   welcomeMsg.innerText = `Welcome ${savedNick}`;
@@ -48,6 +48,6 @@ export function createRoom(aside: HTMLElement, socket: IOSocket) {
     return renderStartPage(socket);
   });
 
-  aside.append(asideHeader, welcomeMsg, roomInput, enterBtn, profile);
+  aside.append(welcomeMsg, roomInput, enterBtn, profile);
   profile.append(profileName, logOutBtn);
 }

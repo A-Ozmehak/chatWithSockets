@@ -1,7 +1,7 @@
 import "./style.css";
 import { io, Socket } from "socket.io-client";
 import { ServerToClientEvents, ClientToServerEvents } from "../../types";
-import { renderRoomsList } from "./renderChatPage";
+import { joinRoom, renderRoomsList } from "./renderChatPage";
 import { renderStartPage } from "./renderStartPage";
 import { renderChatPage } from "./renderChatPage";
 import { renderMain, renderTypingMessage } from "./renderChatPage";
@@ -36,15 +36,33 @@ socket.on("joined", (room) => {
   joinedRoom = room;
   const aside = document.querySelector("aside")!;
 
-  aside.innerHTML = "";
+  // aside.innerHTML = "";
   leaveButton(aside, socket);
 
   //Prints out what room your in, doesn't work if you change room tho
-  let roomName = document.createElement("p");
-  roomName.innerHTML = "You're in room:" + "<br />" + `${room}`;
-  aside.append(roomName);
+  let currentRoom = document.createElement("p");
+  currentRoom.innerHTML = "Currently in: " + `${room}`;
+  currentRoom.id = "currentRoom";
+  aside.append(currentRoom);
+  // const rooms = savedRoomList.slice();
+  // const ul = aside.querySelector("ul") || document.createElement("ul");
+  // ul.innerHTML = "";
+  // for (let i = 0; i < rooms.length; i++) {
+  //   let listItem = document.createElement("li");
+  //   listItem.id = "roomList";
+  //   listItem.innerText = `${rooms[i]}`;
+  //   listItem.addEventListener("click", () => {
+  //     renderChatPage(socket, rooms);
+  //     socket.emit("join", rooms[i]);
+  //   });
+
+  //   ul.append(listItem);
+  //   console.log("roomlist", rooms);
+  //   aside.append(ul);
+  // }
 
   renderMain(socket, room);
+  joinRoom();
   // renderRoomsList(socket, aside)
 });
 

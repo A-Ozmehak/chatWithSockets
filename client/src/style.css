@@ -20,6 +20,7 @@ body {
   flex-direction: column;
   position: fixed;
   inset: 0;
+  word-wrap: break-word;
 }
 
 #welcomeMsg {
@@ -101,4 +102,9 @@ body {
 #logInButton:hover {
   box-shadow: 0 1rem 1.5rem 0 rgba(0, 0, 0, 0.24),
     0 1.5rem 5rem 0 rgba(0, 0, 0, 0.19);
+}
+
+#currentRoom {
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
