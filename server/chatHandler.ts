@@ -13,6 +13,7 @@ export default (io: IOServer, socket: IOSocket) => {
     if (broadcastRooms) {
       io.emit("roomList", getRooms(io));
     }
+    io.emit("roomList", getRooms(io));
   });
   socket.on("message", (message, to) => {
     if (!socket.data.nickname) {

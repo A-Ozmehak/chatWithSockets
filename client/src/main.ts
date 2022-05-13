@@ -40,9 +40,10 @@ socket.on("joined", (room) => {
   leaveButton(aside, socket);
 
   //Prints out what room your in, doesn't work if you change room tho
-  let roomName = document.createElement("p");
-  roomName.innerHTML = "You're in room:" + "<br />" + `${room}`;
-  aside.append(roomName);
+  let currentRoom = document.createElement("p");
+  currentRoom.innerHTML = "Currently in: " + `${room}`;
+  currentRoom.id = "currentRoom";
+  aside.append(currentRoom);
   // const rooms = savedRoomList.slice();
   // const ul = aside.querySelector("ul") || document.createElement("ul");
   // ul.innerHTML = "";

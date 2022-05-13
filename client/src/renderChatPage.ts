@@ -13,6 +13,10 @@ function renderAside(socket: IOSocket, rooms: string[]) {
   const aside = document.createElement("aside");
   aside.id = "aside";
 
+  let asideHeader = document.createElement("header");
+  asideHeader.id = "asideHeader";
+
+  aside.append(asideHeader);
   document.body.append(aside);
   createRoom(aside, socket);
   renderRoomsList(rooms, socket, aside);
@@ -74,4 +78,7 @@ export function joinRoom() {
 
   let createRoomBtn = document.getElementById("enterBtn") as HTMLElement;
   createRoomBtn.style.display = "none";
+
+  let logoutBtn = document.getElementById("logOutBtn") as HTMLElement;
+  logoutBtn.style.display = "none";
 }
