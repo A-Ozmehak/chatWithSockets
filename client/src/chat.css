@@ -44,12 +44,13 @@
   color: rgb(0, 0, 0);
   border-radius: 20px;
   margin: 1rem 1rem 1rem 15.3rem;
-  height: 2.5rem;
+  /*height: 2.5rem;*/
   padding: 0.1rem 0.1rem 0.1rem 1rem;
   display: flex;
   align-items: center;
   width: 60%;
   box-shadow: 1px 3px 7px 3px #888888;
+  word-break: break-word;
 }
 
 #leaveBtn {
@@ -82,4 +83,17 @@
 #main {
   margin-left: 15rem;
   position: relative;
+}
+
+@media screen and (max-width: 400px) {
+  #chatItem {
+    margin-left: 0;
+  }
+
+  #messages {
+    padding-left: 0;
+    width: 10rem;
+    height: auto;
+
+  }
 }
