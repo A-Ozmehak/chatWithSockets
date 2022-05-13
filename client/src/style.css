@@ -103,3 +103,9 @@ body {
   padding-left: 1rem;
   padding-right: 1rem;
 }
+
+@media (max-width: 380px) {
+  #aside {
+    width: 10rem;
+  }
+}
